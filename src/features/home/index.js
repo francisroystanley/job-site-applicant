@@ -1,11 +1,9 @@
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Carousel, Container } from "react-bootstrap";
-import { createSelector } from "reselect";
 import { useDispatch, useSelector } from "react-redux";
 
-import { BodyInfo, BodyInfoVideo, JobCardsList, query, SearchEngine, timeAgo } from "../../commons";
-// import { BusinessUnit } from "../../context";
+import { BodyInfo, BodyInfoVideo, JobCardsList, SearchEngine, timeAgo } from "../../commons";
 
 import allSM from "../../assets/images/homepageCarousel/AllSM.jpg";
 import processIcon1 from "../../assets/images/process-icon-1.png";
@@ -18,15 +16,7 @@ import SMLI from "../../assets/images/homepageCarousel/SMLEI-home.jpg";
 import PRIME from "../../assets/images/homepageCarousel/SMPRIME-home.jpg";
 import SCMC from "../../assets/images/homepageCarousel/Supermalls-home.jpg";
 import emptyBanner from "../../assets/images/empty-banner.jpg";
-import getBusinessUnit from "../../selectors";
-import setBusinessUnit from "../../actions";
 
-
-const stateSelector = createSelector(getBusinessUnit, state => state);
-
-const actionDispatch = (dispatch) => ({
-  setEntities: data => dispatch(setBusinessUnit(data))
-});
 
 const Home = () => {
   const jobLevel = [
@@ -39,16 +29,17 @@ const Home = () => {
     { code: 'DIR_EXEC', name: 'Executive' }
   ];
 
+  let entities = [];
   // let entities = useContext(BusinessUnit);
-  const entities = useSelector(stateSelector);
-  const { setEntities } = actionDispatch(useDispatch());
+  // const entities = useSelector(stateSelector);
+  // const { setEntities } = actionDispatch(useDispatch());
   const [jobAd, setJobAd] = useState([]);
   const [jobClass, setJobClass] = useState([]);
 
   useEffect(async () => {
-    getBusinessUnit();
-    await getJobClass();
-    await getJobAd();
+    // getBusinessUnit();
+    // await getJobClass();
+    // await getJobAd();
   }, [entities]);
 
   const getBusinessUnit = () => {

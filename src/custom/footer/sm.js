@@ -82,13 +82,13 @@ const Footer = ({ entities }) => {
           <div className="row align-items-center">
             <div className="col-md-6 text-center text-md-left my-2">
               <ul className="pagesLinks d-flex flex-wrap justify-content-around">
-                <li className="m-0 mx-3"><a
+                <li className="my-2 mx-3"><a
                 // ui-sref="privacy_policy"
                 >Privacy Policy</a></li>
-                <li className="m-0 mx-3"><a
+                <li className="my-2 mx-3"><a
                 // ui-sref="terms_and_conditions"
                 >Terms and Condition</a></li>
-                <li className="m-0 mx-3"><a
+                <li className="my-2 mx-3"><a
                 // ui-sref="legitimate_purpose"
                 >Legitimate Purpose</a></li>
               </ul>

@@ -1,10 +1,6 @@
 import "../../assets/css/talentmatch.css";
 
 
-const Theme = () => {
-  return (
-    <></>
-  );
-};
+const Theme = () => null;
 
 export default Theme;

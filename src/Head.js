@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getEnv } from "./slices/env";
+import { getBusinessUnit, updateBusinessUnitList } from './slices/businessunit';
 
 import company_logo from "./assets/images/company-logo-SMPRIME.png";
 import ALLSM from "./assets/images/ALLSM-527x273.jpg";
@@ -12,8 +16,8 @@ import SMLI from "./assets/images/SMLI-527x273.jpg";
 
 
 const Head = ({ banner_meta }) => {
-  const env = process.env;
-  const client_code = env.REACT_APP_CLIENT_CODE;
+  const dispatch = useDispatch();
+  const env = useSelector(({ env }) => env);
   let metaImage;
   let metaUrl = window.location.href.replace('http', 'https');
 
@@ -39,12 +43,17 @@ const Head = ({ banner_meta }) => {
     metaImage = ALLSM;
   }
 
+  useEffect(() => {
+    dispatch(getEnv());
+    dispatch(getBusinessUnit()).then(({ payload }) => dispatch(updateBusinessUnitList(payload)));
+  }, []);
+
   return (
     <>
       <HelmetProvider>
         <Helmet>
-          <title>{`${ client_code } Careers`}</title>
-          {client_code == 'SM' &&
+          <title>{`${ env.client_code } Careers`}</title>
+          {env.client_code == 'SM' &&
             <>
               <link rel="apple-touch-icon" sizes="76x76" href={company_logo} />
               <meta property="og:site_name" content="www.smprimecareers.com" />
@@ -55,7 +64,7 @@ const Head = ({ banner_meta }) => {
               <meta property="og:url" content={metaUrl} />
             </>
           }
-          {client_code == 'TALENTMATCH' &&
+          {env.client_code == 'TALENTMATCH' &&
             <>
               <meta property="og:site_name" content="beta.talentmatch.asia" />
               <meta property="og:type" content="website" />
@@ -63,7 +72,7 @@ const Head = ({ banner_meta }) => {
               <meta property="og:description" content="" />
             </>
           }
-          {client_code == 'TITANIUM' &&
+          {env.client_code == 'TITANIUM' &&
             <>
               <meta property="og:site_name" content="jobs.titanium.ph" />
               <meta property="og:type" content="website" />
@@ -77,4 +86,4 @@ const Head = ({ banner_meta }) => {
   );
 };
 
-export default React.memo(Head);
+export default memo(Head);

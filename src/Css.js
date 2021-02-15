@@ -1,4 +1,5 @@
 import loadable from '@loadable/component';
+import { useSelector } from "react-redux";
 
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,12 +11,11 @@ import "../src/assets/css/style.css";
 
 
 const CSS = () => {
-  const env = process.env;
-  const client_code = env.REACT_APP_CLIENT_CODE;
+  const env = useSelector(({ env }) => env);
 
-  const CSSComponent = loadable(() => import(`./custom/css/${ client_code.toLowerCase() }`));
+  const CSSComponent = loadable(() => import(`./custom/css/${ env.client_code.toLowerCase() }`));
 
-  return <CSSComponent />;
+  return env.client_code ? <CSSComponent /> : null;
 };
 
 export default CSS;

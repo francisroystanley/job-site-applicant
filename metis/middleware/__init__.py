@@ -15,6 +15,7 @@ from .branch import BranchHandler
 from .businessunit import BusinessUnitHandler, BusinessUnitPhotoHandler
 from .consent import ConsentHandler
 from .email import EmailVerifyHandler
+from .env import EnvHandler
 from .file_download import AttachmentHandler, ImageHandler, PhotoHandler, ResumeHandler
 from .job_ad import JobAdHandler, JobAdApplicationHandler
 from .job_ad import JobAdApplicationQuickHandler, JobAdSearchTagHandler, JobAdTagHandler
@@ -66,6 +67,7 @@ class MiddleWare(object):
         self.__api.add_resource(CityHandler, '/api/city')
         self.__api.add_resource(ConsentHandler, '/api/consent')
         self.__api.add_resource(EmailVerifyHandler, '/api/verify')
+        self.__api.add_resource(EnvHandler, '/api/env')
         self.__api.add_resource(ImageHandler, '/<image>/<file_name>', endpoint='image')
         self.__api.add_resource(JobAdHandler, '/api/job_ad')
         self.__api.add_resource(JobAdHandler, '/api/job_ad/<id>', endpoint="job_ad_per_id")

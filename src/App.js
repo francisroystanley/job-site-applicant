@@ -1,37 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import WOW from 'wowjs';
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import NavBar from './Navbar';
-import Body from './Body';
 import Footer from './Footer';
+import ErrorPage from './features/error';
 import { BlockUI } from './commons';
-import { getBusinessUnit } from './slices/businessunit';
+import CareerSearch from "./features/career/search";
+import Home from "./features/home";
 
 
 const App = () => {
-  const dispatch = useDispatch();
-  const businessunit = useSelector(state => state.businessunit);
   const wow = new WOW.WOW({
     live: false
   });
   wow.init();
 
-  useEffect(() => {
-    dispatch(getBusinessUnit()).then(entities => console.log(entities));
-    // console.log("businessunit: ", test);
-  }, []);
-
   const [isBusy, setIsBusy] = useState(true);
 
   return (
     <>
-      {isBusy && <BlockUI />}
+      {/* {isBusy && <BlockUI />} */}
       <BrowserRouter>
         <NavBar />
-        <Route exact path="/" component={Body} />
-        <Route>404 not found!</Route>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/career" component={CareerSearch} />
+          {/* <Route exact path="/career">
+            <Route component={CareerSearch} />
+            <Redirect to="/career/search" />
+          </Route> */}
+          <Route exact path="/404" component={ErrorPage} />
+          <Redirect to="/404" />
+        </Switch>
         <Footer />
       </BrowserRouter>
     </>

@@ -1,10 +1,6 @@
 import "../../assets/css/sm.css";
 
 
-const Theme = () => {
-  return (
-    <></>
-  );
-};
+const Theme = () => null;
 
 export default Theme;

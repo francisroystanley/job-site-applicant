@@ -1,8 +1,7 @@
-import { memo, useContext, useEffect } from "react";
+import { memo, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
 
 import sm from './assets/images/sm/logo.png';
@@ -12,15 +11,10 @@ import titanium from './assets/images/titanium/logo.png';
 import wilcon from './assets/images/sm/logo.png';
 
 
-// const stateSelector = createSelector(getBusinessUnit, state => state);
-
 const NavBar = () => {
   let el = document.createElement('div');
-  const entities = [];
-  // const entities = useSelector(stateSelector);
-  // const entities = useContext(BusinessUnit);
-  const env = process.env;
-  const client_code = env.REACT_APP_CLIENT_CODE;
+  const entities = useSelector(({ businessunit }) => businessunit);
+  const env = useSelector(({ env }) => env);
   let isLoggedIn = false;
   const Logos = {
     sm,
@@ -40,6 +34,7 @@ const NavBar = () => {
   });
 
   const addSticky = () => {
+    if (!el) return;
     if (window.pageYOffset) {
       el.classList.add("sticky");
     } else {
@@ -51,13 +46,13 @@ const NavBar = () => {
     console.log('Log out!');
   };
 
-  return ReactDOM.createPortal(
+  return env.client_code ? ReactDOM.createPortal(
     <Navbar expand="lg" fixed="top" className="wow fadeInUp" data-wow-delay="0s">
       <Container>
         <div className="col-2 col-lg-3 px-0">
           <Navbar.Brand
           // ui-sref="home"
-          ><img id="navbar-brand" src={Logos[client_code.toLowerCase()]} alt="" className="d-inline-block align-middle" style={{ 'width': client_code == 'TITANIUM' ? '40vw !important' : '' }} /></Navbar.Brand>
+          ><img id="navbar-brand" src={Logos[env.client_code.toLowerCase()]} alt="" className="d-inline-block align-middle" style={{ 'width': env.client_code == 'TITANIUM' ? '40vw !important' : '' }} /></Navbar.Brand>
         </div>
         {isLoggedIn ?
           <div className="col d-lg-none d-flex px-0 justify-content-end">
@@ -74,7 +69,7 @@ const NavBar = () => {
               >Logout</NavDropdown.Item>
             </NavDropdown>
           </div>
-          : ['SM', 'TALENTMATCH'].includes(client_code) &&
+          : ['SM', 'TALENTMATCH'].includes(env.client_code) &&
           <div className="col text-right d-lg-none">
             <a
               // ui-sref="signin"
@@ -99,7 +94,7 @@ const NavBar = () => {
               <Nav.Link as={Link} to="/">Home</Nav.Link>
             </Nav.Item>
             <NavDropdown title="About Us" id="basic-nav-dropdown">
-              {client_code == 'SM' ?
+              {env.client_code == 'SM' ?
                 entities.map(entity =>
                   // ui-sref="landingpage_{{entity.code}}"
                   <NavDropdown.Item key={entity.businessunit_code} href="">{entity.businessunit_name}</NavDropdown.Item>
@@ -128,7 +123,7 @@ const NavBar = () => {
               <NavDropdown.Item href="" onClick={logout}
               >Logout</NavDropdown.Item>
             </NavDropdown>
-            : ['SM', 'TALENTMATCH'].includes(client_code) &&
+            : ['SM', 'TALENTMATCH'].includes(env.client_code) &&
             <>
               <a
                 // ui-sref="signin"
@@ -142,7 +137,7 @@ const NavBar = () => {
       </Container>
     </Navbar>,
     el
-  );
+  ) : null;
 };
 
 export default memo(NavBar);

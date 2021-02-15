@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from "axios";
 
 
-export const getBusinessUnit = createAsyncThunk('/businessunit/get', (data) =>
-  Axios.get('/api/businessunits', { params: data })
+export const getBusinessUnit = createAsyncThunk('businessunit/get', (data) =>
+  Axios.get('/api/businessunit', { params: data })
     .then(res => res.data.businessunit)
     .catch(err => {
       console.log("ERROR: ", err);
@@ -25,12 +25,12 @@ const businessunitSlice = createSlice({
     // },
     // remove: (state, { payload }) => console.log(state, payload),
     getList: (state, { payload }) => console.log(state, payload),
-    updateList: (state, { payload }) => console.log(state, payload)
+    updateList: (state, { payload }) => payload
   },
   extraReducers: {
     // [getBusinessUnit.pending]: (state, action) => {
     // },
-    [getBusinessUnit.fulfilled]: (state, { payload }) => [...payload],
+    // [getBusinessUnit.fulfilled]: (state, { payload }) => state,
     [getBusinessUnit.rejected]: (state, action) => {
       console.log("rejected: ", action);
     }

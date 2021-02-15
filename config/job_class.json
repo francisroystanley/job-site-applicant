@@ -1,0 +1,169 @@
+{
+  "job_class": [
+    {
+      "job_class_code": "ACCT_FINANCE",
+      "job_class_name": "Accounting/Finance",
+      "job_class_category": [
+        {"category_code": "AUDIT", "category_name": "Audit"},
+        {"category_code": "BANK_FINANCE_SRVC", "category_name": "Banking/Financial Services"},
+        {"category_code": "ECOMMERCE", "category_name": "E-commerce"},
+        {"category_code": "FINANCE", "category_name": "Finance"},
+        {"category_code": "FINANCE_CORP_INV_MERCHANT", "category_name": "Finance - Corporate Finance/Investment/Merchant Banking"},
+        {"category_code": "GEN_ACCT", "category_name": "General Accounting"},
+        {"category_code": "TAXATION", "category_name": "Taxation"},
+        {"category_code": "TREASURY_MGMT", "category_name": "Treasury Management"},
+        {"category_code": "CASH_MGMT", "category_name": "Cash Management"}
+      ]
+    },
+    {
+      "job_class_code": "ADMIN_HR",
+      "job_class_name": "Admin/Human Resources",
+      "job_class_category": [
+        {"category_code": "ADMIN_SUPPORT", "category_name": "Admin Support"},
+        {"category_code": "CLERICAL_ADMIN_SUPPORT", "category_name": "Clerical/Administrative Support"},
+        {"category_code": "CORP_STRAT_TOP_MGMT", "category_name": "Corporate Strategy/Top Management"},
+        {"category_code": "HR", "category_name": "Human Resources"},
+        {"category_code": "SEC_EXEC_PERSONAL_ASST", "category_name": "Secretarial/Executive & Personal Assistant"}
+      ]
+    },
+    {
+      "job_class_code": "ARTS_MEDIA_COMM",
+      "job_class_name": "Arts/Media/Communications",
+      "job_class_category": [
+        {"category_code": "AD_MEDIA_PLAN", "category_name": "Advertising/Media Planning"},
+        {"category_code": "ART_CREATIVE_GRAPHIC_DSGN", "category_name": "Arts/Creative/Graphics Design"},
+        {"category_code": "CINEMA_AMUSMENT_MALL_OPS", "category_name": "Cinema/Amusement/Mall Operations"},
+        {"category_code": "ENTERTAINMENT_PERFORM_ARTS", "category_name": "Entertainment/Performing Arts"},
+        {"category_code": "INDUSTRIAL_DSGN", "category_name": "Industrial Design"},
+        {"category_code": "INTERIOR_DESIGN", "category_name": "Interior Design"},
+        {"category_code": "PUBLIC_REL_COMM", "category_name": "Public Relations/Communications"},
+        {"category_code": "INVESTOR_REL", "category_name": "Investor Relations"}
+      ]
+    },
+    {
+      "job_class_code": "BUILD_CONSTRUCTION",
+      "job_class_name": "Building/Construction",
+      "job_class_category": [
+        {"category_code": "ARCHITECTURE", "category_name": "Architecture"},
+        {"category_code": "ENGG_CIVIL_CONSTUCTION", "category_name": "Engineering - Civil/Construction/Structural"},
+        {"category_code": "QUANTITY_SURVEY", "category_name": "Quantity Surveying"}
+      ]
+    },
+    {
+      "job_class_code": "COMP_IT",
+      "job_class_name": "Computer/Information Technology",
+      "job_class_category": [
+        {"category_code": "INFO_SECURITY", "category_name": "Information Security"},
+        {"category_code": "IT_COMP_HARDWARE", "category_name": "IT/Computer – Hardware"},
+        {"category_code": "IT_COMP_NETWORK_SYSTEM_DB_ADMIN", "category_name": "IT/Computer - Network/System/Database Admin"},
+        {"category_code": "IT_COMP_SOFTWARE", "category_name": "IT/Computer – Software"}
+      ]
+    },
+    {
+      "job_class_code": "EDUCATION_TRAINING",
+      "job_class_name": "Education/Training",
+      "job_class_category": [
+        {"category_code": "EDUCATION", "category_name": "Education"}
+      ]
+    },
+    {
+      "job_class_code": "ENGINEERING",
+      "job_class_name": "Engineering",
+      "job_class_category": [
+        {"category_code": "ENGG_CHEMICAL", "category_name": "Engineering – Chemical"},
+        {"category_code": "ENGG_ELECTRICAL", "category_name": "Engineering – Electrical"},
+        {"category_code": "ENGG_ELECTRONICS_COMM", "category_name": "Engineering - Electronics/Communication"},
+        {"category_code": "ENGG_ENVIRON_HEALTH_SAFETY", "category_name": "Engineering - Environmental/Health/Safety"},
+        {"category_code": "ENGG_INDUSTRIAL", "category_name": "Engineering – Industrial"},
+        {"category_code": "ENGG_MECHANICAL", "category_name": "Engineering - Mechanical"},
+        {"category_code": "ENGG_OILGAS", "category_name": "Engineering - Oil/Gas"},
+        {"category_code": "ENGG_OTHERS", "category_name": "Engineering – Others"}
+      ]
+    },
+    {
+      "job_class_code": "MANUFACTURING",
+      "job_class_name": "Manufacturing",
+      "job_class_category": [
+        {"category_code": "MAINTENACE_REPAIR", "category_name": "Maintenance/Repair (Facilities & Machinery)"},
+        {"category_code": "MANUFACTURING_OPS", "category_name": "Manufacturing/Production Operations"},
+        {"category_code": "PROCESS_DSGN_CTRL_INSTRUMENT", "category_name": "Process Design & Control/Instrumentation"},
+        {"category_code": "PRCHS_INV_WAREHOUSE_MGMT_PROCUREMENT", "category_name": "Purchasing/Inventory/Material & Warehouse Management / Procurement"},
+        {"category_code": "QUALITY_CTRL_ASSURANCE", "category_name": "Quality Control/Assurance"}
+      ]
+    },
+    {
+      "job_class_code": "HOTEL_RESTAURANT",
+      "job_class_name": "Hotel/Restaurant",
+      "job_class_category": [
+        {"category_code": "FOOD_BEVRGE_RESTAU_SRVC", "category_name": "Food/Beverage/Restaurant Service"},
+        {"category_code": "HOTEL_MGMT_TOUR_SRVC", "category_name": "Hotel Management/Tourism Services"}
+      ]
+    },
+    {
+      "job_class_code": "SALES_MARKETING",
+      "job_class_name": "Sales/Marketing",
+      "job_class_category": [
+        {"category_code": "DIGITAL_MARKETING", "category_name": "Digital Marketing"},
+        {"category_code": "MARKETING", "category_name": "Marketing"},
+        {"category_code": "MERCHANDISING", "category_name": "Merchandising"},
+        {"category_code": "SALES_CORP", "category_name": "Sales – Corporate"},
+        {"category_code": "SALES_ENGG_TECH_IT", "category_name": "Sales - Engineering/Technical/IT"},
+        {"category_code": "SALES_FINANCE_SRVC", "category_name": "Sales - Financial Services (Insurance, Unit Trust, etc)"},
+        {"category_code": "SALES_RETIAL_GEN", "category_name": "Sales - Retail/General"},
+        {"category_code": "SALES_TELESALES_TELEMARKETING", "category_name": "Sales - Telesales/Telemarketing"},
+        {"category_code": "BUSINESS_DEV", "category_name": "Business Development"}
+      ]
+    },
+    {
+      "job_class_code": "SCIENCES",
+      "job_class_name": "Sciences",
+      "job_class_category": [
+        {"category_code": "ACTURIAL_STATISTICS", "category_name": "Actuarial Science/Statistics"},
+        {"category_code": "AGRICULTURE_FORESTRY_FISHERIES", "category_name": "Agriculture/Forestry/Fisheries"},
+        {"category_code": "AVIATION_AIRCRAFT_MAINTENANCE", "category_name": "Aviation/Aircraft Maintenance"},
+        {"category_code": "BIOMEDICAL", "category_name": "Biomedical"},
+        {"category_code": "BIOTECHNOLOGY", "category_name": "Biotechnology"},
+        {"category_code": "CHEMISTRY", "category_name": "Chemistry"},
+        {"category_code": "FOOD_TECH_NUTRI", "category_name": "Food Technology/Nutritionist"},
+        {"category_code": "GEOLOGY_GEOPHYSICS", "category_name": "Geology/Geophysics"},
+        {"category_code": "SCIENCE_TECH_LAB", "category_name": "Science & Technology/Laboratory"}
+      ]
+    },
+    {
+      "job_class_code": "SERVICES",
+      "job_class_name": "Services",
+      "job_class_category": [
+        {"category_code": "CUSTOMER_SRVC", "category_name": "Customer Service"},
+        {"category_code": "LAW_LEGAL_SRVC", "category_name": "Law/Legal Services"},
+        {"category_code": "LEASING_MGMT", "category_name": "Leasing Management"},
+        {"category_code": "LOGIST_SUPPLY_CHAIN", "category_name": "Logistics/Supply Chain"},
+        {"category_code": "PERSONAL_CARE_BEAUTY_FIT", "category_name": "Personal Care/Beauty/Fitness Service"},
+        {"category_code": "SECURITY_AF_PROTECTIVE_SRVC", "category_name": "Security/Armed Forces/Protective Services"},
+        {"category_code": "SOCIAL_COUNSELING_SRVC", "category_name": "Social & Counselling Service"},
+        {"category_code": "TECH_HELPDESK_SUPPORT", "category_name": "Technical & Helpdesk Support"},
+        {"category_code": "BUSINESS_INT", "category_name": "Business Intelligence"},
+        {"category_code": "BUSINESS_PROCESS_MGMT", "category_name": "Business Process Management"},
+        {"category_code": "ENTERPRISE_RISK_MGMT", "category_name": "Enterprise Risk Management"}
+      ]
+    },
+    {
+      "job_class_code": "HEALTHCARE",
+      "job_class_name": "Healthcare",
+      "job_class_category": [
+        {"category_code": "DOCTOR_DIAGNOSIS", "category_name": "Healthcare - Doctor/Diagnosis"},
+        {"category_code": "NURSE_MED_SUPP_ASST", "category_name": "Healthcare - Nurse/Medical Support & Assistant"},
+        {"category_code": "PHARMACY", "category_name": "Healthcare – Pharmacy"},
+        {"category_code": "HEALTHSAFETY_ENV", "category_name": "Health Safety and Environment"}
+      ]
+    },
+    {
+      "job_class_code": "OTHERS",
+      "job_class_name": "Others",
+      "job_class_category": [
+        {"category_code": "GEN_WORK", "category_name": "General Work (Housekeeper, Driver, Dispatch, Messenger, etc)"},{"category_code": "PUBLISH_PRINT", "category_name": "Publishing/Printing"},
+        {"category_code": "JOURNALIST_EDITOR", "category_name": "Journalist/Editor"},
+        {"category_code": "PUBLISH_PRINT", "category_name": "Publishing/Printing"}
+      ]
+    }
+  ]
+}

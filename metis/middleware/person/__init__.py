@@ -1,0 +1,7 @@
+from .controller import PersonHandler, PersonProfileAffiliationHandler, PersonProfileAttachmentHandler
+from .controller import PersonProfileCertificateHandler, PersonProfileConsentHandler, PersonProfileDetailHandler
+from .controller import PersonProfileEducationHandler, PersonProfileIdentificationHandler, PersonProfileLicenseHandler
+from .controller import PersonProfilePortfolioHandler, PersonProfilePreferenceHandler, PersonProfileSkillHandler
+from .controller import PersonProfileSocialLinksHandler, PersonProfileTrainingHandler, PersonProfileWorkHistoryHandler
+from .controller import PersonRegisterHandler
+from .model import Person

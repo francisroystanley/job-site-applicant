@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'DaxOT-Regular';
+  src: url('DaxOT-Regular.eot?#iefix') format('embedded-opentype'),  url('DaxOT-Regular.otf')  format('opentype'),
+	     url('DaxOT-Regular.woff') format('woff'), url('DaxOT-Regular.ttf')  format('truetype'), url('DaxOT-Regular.svg#DaxOT-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

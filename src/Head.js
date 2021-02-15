@@ -43,7 +43,7 @@ const Head = ({ banner_meta }) => {
     <>
       <HelmetProvider>
         <Helmet>
-          <title>{client_code} Careers</title>
+          <title>{`${ client_code } Careers`}</title>
           {client_code == 'SM' &&
             <>
               <link rel="apple-touch-icon" sizes="76x76" href={company_logo} />

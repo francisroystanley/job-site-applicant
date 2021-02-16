@@ -16,7 +16,6 @@ import SMLI from "./assets/images/SMLI-527x273.jpg";
 
 
 const Head = () => {
-  console.log(arguments);
   let banner_meta;
   const dispatch = useDispatch();
   const env = useSelector(({ env }) => env);

@@ -21,20 +21,18 @@ const App = () => {
   return (
     <>
       {/* {isBusy && <BlockUI />} */}
-      <BrowserRouter>
-        <NavBar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/career" component={CareerSearch} />
-          {/* <Route exact path="/career">
+      <NavBar />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/career" component={CareerSearch} />
+        {/* <Route exact path="/career">
             <Route component={CareerSearch} />
             <Redirect to="/career/search" />
           </Route> */}
-          <Route exact path="/404" component={ErrorPage} />
-          <Redirect to="/404" />
-        </Switch>
-        <Footer />
-      </BrowserRouter>
+        <Route exact path="/404" component={ErrorPage} />
+        <Redirect to="/404" />
+      </Switch>
+      <Footer />
     </>
   );
 };

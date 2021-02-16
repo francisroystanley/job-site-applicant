@@ -1,4 +1,8 @@
 .DS_Store
+*.bat
+aws_deploy
+docker*
+*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

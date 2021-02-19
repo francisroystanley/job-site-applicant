@@ -4,12 +4,6 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import sm from './assets/images/sm/logo.png';
-import goldilocks from './assets/images/goldilocks/logo.png';
-import talentmatch from './assets/images/talentmatch/logo.png';
-import titanium from './assets/images/titanium/logo.png';
-import wilcon from './assets/images/sm/logo.png';
-
 
 const NavBar = () => {
   let el = document.createElement('div');
@@ -17,11 +11,12 @@ const NavBar = () => {
   const env = useSelector(({ env }) => env);
   let isLoggedIn = false;
   const Logos = {
-    sm,
-    goldilocks,
-    talentmatch,
-    titanium,
-    wilcon
+    ayala: '/assets/images/ayala/ayala-logo.svg',
+    sm: '/assets/images/sm/logo.png',
+    goldilocks: '/assets/images/goldilocks/logo.png',
+    talentmatch: '/assets/images/talentmatch/logo.png',
+    titanium: '/assets/images/titanium/logo.png',
+    wilcon: '/assets/images/sm/logo.png'
   };
   let parentElem = document.body;
   window.onscroll = () => addSticky();
@@ -49,10 +44,10 @@ const NavBar = () => {
   return env.client_code ? ReactDOM.createPortal(
     <Navbar expand="lg" fixed="top" className="wow fadeInUp" data-wow-delay="0s">
       <Container>
-        <div className="col-2 col-lg-3 px-0">
+        <div className="col-6 d-flex col-lg-3 px-0">
           <Navbar.Brand
           // ui-sref="home"
-          ><img id="navbar-brand" src={Logos[env.client_code.toLowerCase()]} alt="" className="d-inline-block align-middle" style={{ 'width': env.client_code == 'TITANIUM' ? '40vw !important' : '' }} /></Navbar.Brand>
+          ><img id="navbar-brand" src={Logos[env.client_code.toLowerCase()]} alt="" className="d-inline-block align-middle" style={{ 'width': '178px' }} /></Navbar.Brand>
         </div>
         {isLoggedIn ?
           <div className="col d-lg-none d-flex px-0 justify-content-end">
@@ -69,22 +64,24 @@ const NavBar = () => {
               >Logout</NavDropdown.Item>
             </NavDropdown>
           </div>
-          : ['SM', 'TALENTMATCH'].includes(env.client_code) &&
+          :
           <div className="col text-right d-lg-none">
-            <a
+            <Link
               // ui-sref="signin"
-              className="btn mr-1">Sign In</a>
-            <a
+              to="/signin"
+              className="btn mr-1">Sign In</Link>
+            <Link
               // ui-sref="register"
-              className="btn btn-outline-light">Register</a>
+              to="/register"
+              className="btn btn-outline-warning">Register</Link>
           </div>
         }
         <div className="w-auto ml-3 d-flex p-0 justify-content-end d-lg-none">
           <Navbar.Toggle aria-controls="basic-navbar-nav" className="p-0" children={
             <>
-              <span className="icon-bar bg-white"></span>
-              <span className="icon-bar bg-white"></span>
-              <span className="icon-bar bg-white"></span>
+              <span className="icon-bar bg-dark"></span>
+              <span className="icon-bar bg-dark"></span>
+              <span className="icon-bar bg-dark"></span>
             </>
           } />
         </div>
@@ -123,14 +120,14 @@ const NavBar = () => {
               <NavDropdown.Item href="" onClick={logout}
               >Logout</NavDropdown.Item>
             </NavDropdown>
-            : ['SM', 'TALENTMATCH'].includes(env.client_code) &&
+            :
             <>
-              <a
+              <Link
                 // ui-sref="signin"
-                className="btn d-none d-lg-inline">Sign In</a>
-              <a
+                className="btn text-dark d-none d-lg-inline mr-1" to="/signin">Sign In</Link>
+              <Link
                 // ui-sref="register"
-                className="btn btn-outline-light d-none d-lg-inline">Register</a>
+                className="btn btn-outline-warning d-none d-lg-inline mr-1" to="/register">Register</Link>
             </>
           }
         </Navbar.Collapse>

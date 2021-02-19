@@ -12,7 +12,7 @@ const Footer = () => {
   const entities = useSelector(({ businessunit }) => businessunit);
   const env = useSelector(({ env }) => env);
 
-  const FooterComponent = loadable(() => import(`./custom/footer/${ env.client_code.toLowerCase() }`));
+  const FooterComponent = loadable(() => import(`./features/footer/${ env.client_code.toLowerCase() }`));
 
   useEffect(() => {
     parentElem.appendChild(el);

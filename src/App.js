@@ -6,8 +6,11 @@ import NavBar from './Navbar';
 import Footer from './Footer';
 import ErrorPage from './features/error';
 import { BlockUI } from './commons';
-import CareerSearch from "./features/career/search";
+import Career from "./features/career";
 import Home from "./features/home";
+import SignIn from "./features/signin";
+import Register from "./features/register";
+import ForgotPassword from "./features/forgot-password";
 
 
 const App = () => {
@@ -24,7 +27,10 @@ const App = () => {
       <NavBar />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/career" component={CareerSearch} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/forgotpassword" component={ForgotPassword} />
+        <Route exact path="/career" component={Career} />
         {/* <Route exact path="/career">
             <Route component={CareerSearch} />
             <Redirect to="/career/search" />

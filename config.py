@@ -25,10 +25,10 @@ VPROFILE_USER = os.environ['VPROFILE_USER']
 VPROFILE_PWD = os.environ['VPROFILE_PWD']
 VPROFILE_APPNAME = os.environ['VPROFILE_APPNAME']
 
-METIS_API = os.environ['METIS_API']
-METIS_USER = os.environ['METIS_USER']
-METIS_PWD = os.environ['METIS_PWD']
-METIS_APPNAME = os.environ['METIS_APPNAME']
+PONOS_API = os.environ['PONOS_API']
+PONOS_USER = os.environ['PONOS_USER']
+PONOS_PWD = os.environ['PONOS_PWD']
+PONOS_APPNAME = os.environ['PONOS_APPNAME']
 
 HERMES_API = os.environ['HERMES_API']
 HERMES_USER = os.environ['HERMES_USER']
@@ -43,9 +43,9 @@ GOOGLE_RECAPTCHA_KEY = os.environ.get('GOOGLE_RECAPTCHA_KEY')
 GOOGLE_RECAPTCHA_URL = os.environ.get('GOOGLE_RECAPTCHA_URL')
 
 MONGO_SERVER = os.environ.get('MONGO_SERVER', 'localhost:27017')
-MONGO_DB = os.environ.get('MONGO_DB', 'metis')
+MONGO_DB = os.environ.get('MONGO_DB', 'ponos')
 MONGO_USER = os.environ.get('MONGO_USER', 'user')
 MONGO_PWD = os.environ.get('MONGO_PWD', 'password')
-MONGO_AUTHDB = os.environ.get('MONGO_AUTHDB', 'metis')
+MONGO_AUTHDB = os.environ.get('MONGO_AUTHDB', 'ponos')
 
 SECRET_KEY = os.environ.get('APP_SECRET', 'mysuperlongsecretkeythatisunique')

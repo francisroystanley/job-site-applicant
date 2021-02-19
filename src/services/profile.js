@@ -1,7 +1,7 @@
 (function (angular) {
   'use strict';
   angular
-    .module('metis')
+    .module('ponos')
     .factory('ProfileSrvc', ProfileService)
     .factory('ProfilePersonSrvc', ProfilePersonService)
     .factory('ProfilePersonAffiliationSrvc', ProfilePersonAffiliationService)

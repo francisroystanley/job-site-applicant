@@ -3,19 +3,7 @@ import PropTypes from "prop-types";
 import { Carousel, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { BodyInfo, BodyInfoVideo, JobCardsList, SearchEngine, timeAgo } from "../../commons";
-
-import allSM from "../../assets/images/homepageCarousel/AllSM.jpg";
-import processIcon1 from "../../assets/images/process-icon-1.png";
-import processIcon2 from "../../assets/images/process-icon-2.png";
-import processIcon3 from "../../assets/images/process-icon-3.png";
-import SMCinema from "../../assets/images/homepageCarousel/SMCinema-home.jpg";
-import SMDC from "../../assets/images/homepageCarousel/SMDC-home.jpg";
-import EDD from "../../assets/images/homepageCarousel/SMEDD-home.jpg";
-import SMLI from "../../assets/images/homepageCarousel/SMLEI-home.jpg";
-import PRIME from "../../assets/images/homepageCarousel/SMPRIME-home.jpg";
-import SCMC from "../../assets/images/homepageCarousel/Supermalls-home.jpg";
-import emptyBanner from "../../assets/images/empty-banner.jpg";
+import { BodyInfo, BodyInfoVideo, CareerWorks, JobCardsList, SearchEngine, timeAgo } from "../../commons";
 
 
 const Home = () => {
@@ -47,19 +35,19 @@ const Home = () => {
       entity.code = entity.businessunit_code;
       entity.name = entity.businessunit_name;
       if ("SMC".indexOf(entity.code) >= 0) {
-        entity.home_image = SMCinema;
+        entity.home_image = "/assets/images/homepageCarousel/SMCinema-home.jpg";
       } else if (entity.code.indexOf("SMDC") >= 0) {
-        entity.home_image = SMDC;
+        entity.home_image = "/assets/images/homepageCarousel/SMDC-home.jpg";
       } else if (entity.code.indexOf("EDD") >= 0) {
-        entity.home_image = EDD;
+        entity.home_image = "/assets/images/homepageCarousel/SMEDD-home.jpg";
       } else if (entity.code.indexOf("SMLI") >= 0) {
-        entity.home_image = SMLI;
+        entity.home_image = "/assets/images/homepageCarousel/SMLEI-home.jpg";
       } else if (entity.code.indexOf("PRIME") >= 0) {
-        entity.home_image = PRIME;
+        entity.home_image = "/assets/images/homepageCarousel/SMPRIME-home.jpg";
       } else if (entity.code.indexOf("SCMC") >= 0) {
-        entity.home_image = SCMC;
+        entity.home_image = "/assets/images/homepageCarousel/Supermalls-home.jpg";
       } else {
-        entity.home_image = emptyBanner;
+        entity.home_image = "/assets/images/empty-banner.jpg";
       }
     });
     // setEntities(entities);
@@ -129,7 +117,7 @@ const Home = () => {
             <Carousel id="homepageCarousel" interval={3000} className="pb-4 mb-0">
               <Carousel.Item>
                 <a>
-                  <img className="d-block mx-auto w-90" src={allSM} alt="SM Cinema" />
+                  <img className="d-block mx-auto w-90" src="/assets/images/homepageCarousel/AllSM.jpg" alt="SM Cinema" />
                 </a>
               </Carousel.Item>
               {entities.map((entity, idx) => (
@@ -147,55 +135,7 @@ const Home = () => {
         </div>
       </header>
       <div className="bodyContents">
-        <section className="bodyContents-section">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-10 offset-md-1 text-center wow fadeInUp" data-wow-delay="0s">
-                <h3 className="h3">How SM career works?</h3>
-                <p className="lead">
-                </p>
-              </div>
-            </div>
-            <div className="our-process row justify-content-center">
-              <div className="singleProcess col-11 col-md-4 wow fadeInUp" data-wow-delay="0.1s">
-                <div className="row align-items-center">
-                  <div className="col-3 col-md-12 pr-0">
-                    <img src={processIcon1} className="processIcon img-fluid" />
-                  </div>
-                  <div className="col col-md-12 pr-0">
-                    <div>
-                      <h5 className="mb-0">Create account</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="singleProcess col-11 col-md-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div className="row align-items-center">
-                  <div className="col-3 col-md-12 pr-0">
-                    <img src={processIcon2} className="processIcon img-fluid" />
-                  </div>
-                  <div className="col col-md-12 pr-0">
-                    <div>
-                      <h5 className="mb-0">Apply</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="singleProcess col-11 col-md-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div className="row align-items-center">
-                  <div className="col-3 col-md-12 pr-0">
-                    <img src={processIcon3} className="processIcon img-fluid" />
-                  </div>
-                  <div className="col col-md-12 pr-0">
-                    <div>
-                      <h5 className="mb-0">You're hired!</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CareerWorks />
         <section className="bodyContents-section">
           <div id="jobCards" className="jobCards container">
             <div className="d-flex flex-wrap justify-content-between align-items-center wow fadeInUp" data-wow-delay="0s">

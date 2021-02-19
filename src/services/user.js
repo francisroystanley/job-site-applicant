@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
   angular
-    .module('metis')
+    .module('ponos')
     .factory('UserSrvc', UserService)
     .factory('UserPhotoSrvc', UserPhotoService);
 

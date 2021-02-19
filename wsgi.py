@@ -1,4 +1,4 @@
-from metis import application
+from ponos import application
 
 if __name__ == '__main__':
     DEBUG = application.config["DEBUG"]

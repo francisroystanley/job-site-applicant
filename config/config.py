@@ -3,10 +3,10 @@ import json
 from pymongo import MongoClient
 
 MONGO_SERVER = os.environ.get('MONGO_SERVER', 'localhost:27017')
-MONGO_DB = os.environ.get('MONGO_DB', 'metis')
+MONGO_DB = os.environ.get('MONGO_DB', 'ponos')
 MONGO_USER = os.environ.get('MONGO_USER', 'user')
 MONGO_PWD = os.environ.get('MONGO_PWD', 'password')
-MONGO_AUTHDB = os.environ.get('MONGO_AUTHDB', 'metis')
+MONGO_AUTHDB = os.environ.get('MONGO_AUTHDB', 'ponos')
 
 print(MONGO_SERVER, MONGO_DB, MONGO_PWD)
 
@@ -99,4 +99,3 @@ run_countries()
 run_job_class()
 run_provinces()
 run_religions()
-

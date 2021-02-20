@@ -86,47 +86,7 @@ def dated_url_for(endpoint, **values):
 
 
 @app.route('/', endpoint='index')
-# @app.route('/404', endpoint='error')
-# @app.route('/activate', endpoint='activate')
-# @app.route('/accountactivation/<path:path>', endpoint='accountactivation')
-# @app.route('/career', endpoint='jobad')
-# @app.route('/career/jobad/<path:path>', endpoint='jobad_view_detail')
-# @app.route('/career/search', endpoint='jobad_search')
-# @app.route('/privacy_policy', endpoint='privacy_policy')
-# @app.route('/terms_and_conditions', endpoint='terms_and_conditions')
-# @app.route('/legitimate_purpose', endpoint='legitimate_purpose')
-# @app.route('/landingpage/<path:path>', endpoint='old_landingpage')
-# @app.route('/prime', endpoint="prime")
-# @app.route('/edd', endpoint="prime")
-# @app.route('/smprime', endpoint="smprime")
-# @app.route('/smedd', endpoint="smedd")
-# @app.route('/smlifestyle', endpoint="smlifestyle")
-# @app.route('/smcinema', endpoint="smcinema")
-# @app.route('/smsupermalls', endpoint="smsupermalls")
-# @app.route('/smdc', endpoint="smdc")
 def index(path=None):
-    #     if current_user.is_authenticated:
-    #         user_info = current_user.info
-    #     else:
-    #         user_info = None
-    #     banner_meta = 'ALL'
-    #     if request.path.lower() == '/prime':
-    #         banner_meta = 'PRIME'
-    #     elif request.path.lower() == '/edd':
-    #         banner_meta = 'EDD'
-    #     elif request.path.lower() == '/smprime':
-    #         banner_meta = 'SMPRIME'
-    #     elif request.path.lower() == '/smedd':
-    #         banner_meta = 'SMEDD'
-    #     elif request.path.lower() == '/smdc':
-    #         banner_meta = 'SMDC'
-    #     elif request.path.lower() == '/smlifestyle':
-    #         banner_meta = 'SMLI'
-    #     elif request.path.lower() == '/smcinema':
-    #         banner_meta = 'SMC'
-    #     elif request.path.lower() == '/smsupermalls':
-    #         banner_meta = 'SCMC'
-    # return render_template('index.html', banner_meta='SMPRIME')
     return ""
 
 

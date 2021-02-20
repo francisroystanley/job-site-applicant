@@ -7,18 +7,11 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   let el = document.createElement('div');
-  const entities = useSelector(({ businessunit }) => businessunit);
+  const entities = useSelector(({ businessUnit }) => businessUnit);
   const env = useSelector(({ env }) => env);
   let isLoggedIn = false;
-  const Logos = {
-    ayala: '/assets/images/ayala/ayala-logo.svg',
-    sm: '/assets/images/sm/logo.png',
-    goldilocks: '/assets/images/goldilocks/logo.png',
-    talentmatch: '/assets/images/talentmatch/logo.png',
-    titanium: '/assets/images/titanium/logo.png',
-    wilcon: '/assets/images/sm/logo.png'
-  };
   let parentElem = document.body;
+
   window.onscroll = () => addSticky();
 
   useEffect(() => {
@@ -45,9 +38,9 @@ const NavBar = () => {
     <Navbar expand="lg" fixed="top" className="wow fadeInUp" data-wow-delay="0s">
       <Container>
         <div className="col-6 d-flex col-lg-3 px-0">
-          <Navbar.Brand
-          // ui-sref="home"
-          ><img id="navbar-brand" src={Logos[env.client_code.toLowerCase()]} alt="" className="d-inline-block align-middle" style={{ 'width': '178px' }} /></Navbar.Brand>
+          <Navbar.Brand>
+            <img id="navbar-brand" src="/assets/images/ayala/ayala-label-logo.svg" alt="" className="d-inline-block align-middle" style={{ 'width': '178px' }} />
+          </Navbar.Brand>
         </div>
         {isLoggedIn ?
           <div className="col d-lg-none d-flex px-0 justify-content-end">
@@ -66,14 +59,8 @@ const NavBar = () => {
           </div>
           :
           <div className="col text-right d-lg-none">
-            <Link
-              // ui-sref="signin"
-              to="/signin"
-              className="btn mr-1">Sign In</Link>
-            <Link
-              // ui-sref="register"
-              to="/register"
-              className="btn btn-outline-warning">Register</Link>
+            <Link to="/signin" className="btn mr-1">Sign In</Link>
+            <Link to="/register" className="btn btn-outline-secondary">Register</Link>
           </div>
         }
         <div className="w-auto ml-3 d-flex p-0 justify-content-end d-lg-none">
@@ -91,17 +78,11 @@ const NavBar = () => {
               <Nav.Link as={Link} to="/">Home</Nav.Link>
             </Nav.Item>
             <NavDropdown title="About Us" id="basic-nav-dropdown">
-              {env.client_code == 'SM' ?
-                entities.map(entity =>
-                  // ui-sref="landingpage_{{entity.code}}"
-                  <NavDropdown.Item key={entity.businessunit_code} href="">{entity.businessunit_name}</NavDropdown.Item>
-                )
-                :
-                entities.map(entity =>
-                  // ui-sref="landingpage({businessunit_code: entity.code})"
-                  <NavDropdown.Item key={entity.businessunit_code} href="">{entity.businessunit_name}</NavDropdown.Item>
-                )
-              }
+              {entities.map(entity =>
+                <NavDropdown.Item key={entity.businessunit_code} as={Link} to={`${ entity.businessunit_code.toLowerCase() }`}>
+                  {entity.businessunit_name}
+                </NavDropdown.Item>
+              )}
             </NavDropdown>
             <Nav.Item>
               <Nav.Link as={Link} to="/career">Careers</Nav.Link>
@@ -122,12 +103,8 @@ const NavBar = () => {
             </NavDropdown>
             :
             <>
-              <Link
-                // ui-sref="signin"
-                className="btn text-dark d-none d-lg-inline mr-1" to="/signin">Sign In</Link>
-              <Link
-                // ui-sref="register"
-                className="btn btn-outline-warning d-none d-lg-inline mr-1" to="/register">Register</Link>
+              <Link className="btn text-dark d-none d-lg-inline mr-1" to="/signin">Sign In</Link>
+              <Link className="btn btn-outline-secondary d-none d-lg-inline mr-1" to="/register">Register</Link>
             </>
           }
         </Navbar.Collapse>

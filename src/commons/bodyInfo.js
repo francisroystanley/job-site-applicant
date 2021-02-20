@@ -9,26 +9,17 @@ const BodyInfo = () => {
       <section id="companiesLogos" className="companiesLogos bodyContents-section wow fadeInUp" data-wow-delay="0s">
         <div className="container">
           <div className="companiesLogos-list row">
-            <div className="agencyLogoWrap col-4 col-md">
-              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.1s" src="/assets/images/company-logo-PRIME.png" alt="" />
+            <div className="agencyLogoWrap col-12 col-sm-6 col-md">
+              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.1s" src="/assets/images/ayala/ayala-land.svg" alt="" />
             </div>
-            <div className="agencyLogoWrap col-4 col-md">
-              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.2s" src="/assets/images/company-logo-EDD.png" alt="" />
+            <div className="agencyLogoWrap col-12 col-sm-6 col-md">
+              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.2s" src="/assets/images/ayala/bpi.svg" alt="" />
             </div>
-            <div className="agencyLogoWrap col-4 col-md">
-              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.3s" src="/assets/images/company-logo-SMC.png" alt="" />
+            <div className="agencyLogoWrap col-12 col-sm-6 col-md">
+              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.3s" src="/assets/images/ayala/globe-telecom.svg" alt="" />
             </div>
-            <div className="agencyLogoWrap col-4 col-md">
-              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.4s" src="/assets/images/company-logo-SCMC.png" alt="" />
-            </div>
-            <div className="agencyLogoWrap col-4 col-md">
-              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.5s" src="/assets/images/company-logo-FECI.png" alt="" />
-            </div>
-            <div className="agencyLogoWrap col-4 col-md">
-              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.5s" src="/assets/images/company-logo-SMLI.png" alt="" />
-            </div>
-            <div className="agencyLogoWrap col-12 mt-md-4 mt-lg-0 col-md">
-              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.5s" src="/assets/images/company-logo-SMDC.png" alt="" />
+            <div className="agencyLogoWrap col-12 col-sm-6 col-md">
+              <img className="agencyLogo wow fadeInUp" data-wow-delay="0.4s" src="/assets/images/ayala/manila-water.svg" alt="" />
             </div>
           </div>
         </div>

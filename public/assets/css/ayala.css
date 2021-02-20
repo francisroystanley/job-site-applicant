@@ -759,8 +759,6 @@ a.text-danger:hover {
   color: #ff3636 !important;
 }
 
-/*SIGNIN*/
-.btn-secondary {
-  background-color: #21418c !important;
-  border-color: #21418c !important;
+a.btn-outline-secondary:hover {
+  color: white !important;
 }

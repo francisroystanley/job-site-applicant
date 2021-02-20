@@ -2,17 +2,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Axios from "axios";
 
 
-export const getBusinessUnit = createAsyncThunk('businessunit/get', (data) =>
-  Axios.get('/api/businessunit', { params: data })
-    .then(res => res.data.businessunit)
+export const getJobClass = createAsyncThunk('jobclass/get', (data) =>
+  Axios.get('/api/job_class', { params: data })
+    .then(res => res.data.job_class)
     .catch(err => {
       console.log("ERROR: ", err);
       throw new Error(err);
     })
 );
 
-const businessUnitSlice = createSlice({
-  name: 'businessunit',
+const jobClassSlice = createSlice({
+  name: 'jobclass',
   initialState: [],
   reducers: {
     // add: (state, { payload }) => console.log(state, payload),
@@ -28,10 +28,8 @@ const businessUnitSlice = createSlice({
     updateList: (state, { payload }) => payload
   },
   extraReducers: {
-    // [getBusinessUnit.pending]: (state, action) => {
-    // },
-    // [getBusinessUnit.fulfilled]: (state, { payload }) => state,
-    [getBusinessUnit.rejected]: (state, action) => {
+    [getJobClass.fulfilled]: (state, { payload }) => payload,
+    [getJobClass.rejected]: (state, action) => {
       console.log("rejected: ", action);
     }
   }
@@ -41,7 +39,7 @@ export const {
   //   add: addBusinessUnit,
   //   getPhoto: getBusinessUnitPhoto,
   //   remove: removeBusinessUnit,
-  updateList: updateBusinessUnitList
-} = businessUnitSlice.actions;
+  updateList: updateJobClass
+} = jobClassSlice.actions;
 
-export default businessUnitSlice;
+export default jobClassSlice;

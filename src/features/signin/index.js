@@ -4,6 +4,8 @@ import { BodyInfo, CareerWorks } from "../../commons";
 
 
 const SignIn = () => {
+  window.scrollTo(0, 0);
+
   return (
     <>
       <div className="bodyContents pt-0">

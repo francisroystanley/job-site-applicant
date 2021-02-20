@@ -1,10 +1,12 @@
-import businessunitSlice from './slices/businessunit';
+import businessUnitSlice from './slices/businessUnit';
 import envSlice from "./slices/env";
+import jobClassSlice from "./slices/jobClass";
 
 
 const reducer = {
-  businessunit: businessunitSlice.reducer,
-  env: envSlice.reducer
+  businessUnit: businessUnitSlice.reducer,
+  env: envSlice.reducer,
+  jobClass: jobClassSlice.reducer
 };
 
 export default reducer;

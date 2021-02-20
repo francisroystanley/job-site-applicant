@@ -1,7 +1,17 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { updateEnvState } from "../../slices/env";
 
-const Footer = ({ entities }) => {
+
+const Footer = ({ entities, showConsent }) => {
+  const dispatch = useDispatch();
+
+  const acceptCookieConsent = () => {
+    // Insert code to read and insert cookies
+    dispatch(updateEnvState({ showCookieConsent: false }));
+  };
+
   return (
     <>
       <div className="footerBody">
@@ -14,12 +24,8 @@ const Footer = ({ entities }) => {
                   <br />
                   <div className="text">
                     <ul className="pagesLinks">
-                      <li><a
-                      // ui-sref="home"
-                      >Home</a></li>
-                      <li><a
-                      // ui-sref="career.search"
-                      >Careers</a></li>
+                      <li><Link to="/home">Home</Link></li>
+                      <li><Link to="/career">Careers</Link></li>
                     </ul>
                   </div>
                 </div>
@@ -32,10 +38,10 @@ const Footer = ({ entities }) => {
                     <ul className="pagesLinks">
                       <li>
                         {entities.map(entity =>
-                          <a key={entity.businessunit_code}
+                          <Link key={entity.businessunit_code} to={`/${ entity.businessunit_code.toLowerCase() }`}
                           // ui-sref="landingpage_{{entity.code}}"
                           >{entity.businessunit_name}
-                          </a>
+                          </Link>
                         )}
                       </li>
                     </ul>
@@ -49,28 +55,16 @@ const Footer = ({ entities }) => {
                   <div className="text">
                     <ul className="pagesLinks">
                       <li className="m-15">
-                        <a className="my-0 d-inline">SM PRIME</a>
-                        <a className="my-0 d-inline" href="tel:862-7973"> 8862-7973</a>
+                        <a className="my-0 d-inline" target="_blank" href="https://www.ayalaland.com.ph/contact-us/">Ayala Land</a>
                       </li>
                       <li className="m-15">
-                        <a className="my-0 d-inline">SCMC</a>
-                        <a className="my-0 d-inline" href="tel:862-7150"> 8862-7150</a>
+                        <a className="my-0 d-inline" target="_blank" href="https://www.bpi.com.ph/contactus">BPI</a>
                       </li>
                       <li className="m-15">
-                        <a className="my-0 d-inline">SMEDD</a>
-                        <a className="my-0 d-inline" href="tel:862-7581"> 8862-7581</a>
+                        <a className="my-0 d-inline" target="_blank" href="https://www.globe.com.ph/contact-us.html">Globe Telecom</a>
                       </li>
                       <li className="m-15">
-                        <a className="my-0 d-inline">SM CINEMA</a>
-                        <a className="my-0 d-inline" href="tel:862-7654"> 8862-7654</a>
-                      </li>
-                      <li className="m-15">
-                        <a className="my-0 d-inline">FECI & ARENA</a>
-                        <a className="my-0 d-inline" href="tel:862-7714"> 8862-7714</a>
-                      </li>
-                      <li className="m-15">
-                        <a className="my-0 d-inline">SMDC</a>
-                        <a className="my-0 d-inline" href="tel:857-0100 Local 1579"> 8857-0100 Local 1579</a>
+                        <a className="my-0 d-inline" target="_blank" href="https://www.manilawater.com/customer/contact-us">Manila Water</a>
                       </li>
                     </ul>
                   </div>
@@ -86,22 +80,13 @@ const Footer = ({ entities }) => {
             <div className="col-md-6 text-center text-md-left my-2">
               <ul className="pagesLinks d-flex flex-wrap justify-content-around">
                 <li className="my-2 mx-3">
-                  <Link
-                    // ui-sref="privacy_policy"
-                    to="/privacy_policy"
-                  >Privacy Policy</Link>
+                  <Link to="/privacy_policy">Privacy Policy</Link>
                 </li>
                 <li className="my-2 mx-3">
-                  <Link
-                    // ui-sref="terms_and_conditions"
-                    to="/terms_and_conditions"
-                  >Terms and Condition</Link>
+                  <Link to="/terms_and_conditions">Terms and Condition</Link>
                 </li>
                 <li className="my-2 mx-3">
-                  <Link
-                    // ui-sref="legitimate_purpose"
-                    to="/legitimate_purpose"
-                  >Legitimate Purpose</Link>
+                  <Link to="/legitimate_purpose">Legitimate Purpose</Link>
                 </li>
               </ul>
             </div>
@@ -111,18 +96,14 @@ const Footer = ({ entities }) => {
           </div>
         </div>
       </div>
-      <div id="cookie_consent" className="row justify-content-around fixed-bottom mb-0 p-2 align-items-center" role="alert"
-      // ng-show="$root.showNotif"
-      >
-        <div className="mb-1">
-          This website uses cookies to improve user experience. By using our website, you consent to all cookies in accordance with our Cookie Policy. < a
-          // ui - sref="privacy_policy"
-          ><u>Learn more.</u></a>
-        </div >
-        <button className="mb-1 btn btn-primary font-weight-bold"
-        // ng-click="$root.changeCookieSetting(true)"
-        >Got it!</button>
-      </div >
+      {showConsent &&
+        <div id="cookie_consent" className="row justify-content-around fixed-bottom mb-0 p-2 align-items-center" role="alert">
+          <div className="mb-1 text-white">
+            This website uses cookies to improve user experience. By using our website, you consent to all cookies in accordance with our Cookie Policy. <Link to="/privacy_policy"><u>Learn more.</u></Link>
+          </div>
+          <button className="mb-1 btn btn-secondary font-weight-bold" onClick={acceptCookieConsent}>Got it!</button>
+        </div>
+      }
     </>
   );
 };

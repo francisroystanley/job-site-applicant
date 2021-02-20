@@ -9,7 +9,7 @@ const Footer = () => {
   el.className = 'footer dark-bg';
   let parentElem = document.body;
 
-  const entities = useSelector(({ businessunit }) => businessunit);
+  const entities = useSelector(({ businessUnit }) => businessUnit);
   const env = useSelector(({ env }) => env);
 
   const FooterComponent = loadable(() => import(`./features/footer/${ env.client_code.toLowerCase() }`));
@@ -21,7 +21,7 @@ const Footer = () => {
     };
   });
 
-  return env.client_code ? ReactDOM.createPortal(<FooterComponent entities={entities} />, el) : null;
+  return env.client_code ? ReactDOM.createPortal(<FooterComponent entities={entities} showConsent={env.showCookieConsent} />, el) : null;
 };
 
 export default memo(Footer);

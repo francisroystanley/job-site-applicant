@@ -13,18 +13,20 @@ export const getEnv = createAsyncThunk('env/get', data =>
 
 const envSlice = createSlice({
   name: 'env',
-  initialState: {},
-  reducers: {},
+  initialState: { showCookieConsent: true },
+  reducers: {
+    updateState: (state, { payload }) => ({ ...state, ...payload })
+  },
   extraReducers: {
-    [getEnv.fulfilled]: (state, { payload }) => payload,
+    [getEnv.fulfilled]: (state, { payload }) => ({ ...state, ...payload }),
     [getEnv.rejected]: (state, action) => {
       console.log("rejected: ", action);
     }
   }
 });
 
-// export const {
-//   updateState: updateEnvState
-// } = envSlice.actions;
+export const {
+  updateState: updateEnvState
+} = envSlice.actions;
 
 export default envSlice;

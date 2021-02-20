@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-const SearchEngine = props => {
 
+const SearchEngine = props => {
   // vm.enable_department = env.department_01;
-  const [entities, SetEntities] = useState([{ code: 'ALL', name: 'All SM' }]);
+  const [entities, SetEntities] = useState([{ code: 'ALL', name: 'All' }]);
   // vm.env = env.client_code;
   const isCareer = window.location.pathname.includes('career');
   const [jobAds, setJobAds] = useState([]);
@@ -96,7 +96,7 @@ const SearchEngine = props => {
               </div>
             </div>
           </div>
-          <div className="input-group form-control-wrap mt-lg-3 px-md-1 px-lg-0 px-xl-3"
+          <div className="input-group form-control-wrap mt-lg-3 px-md-1 px-lg-0 px-xl-3 align-items-center"
           // ng-class="!search_engine.enable_department && 'border-0'"
           >
             <input type="text" className="form-control" placeholder="Search job title or keywords"
@@ -104,9 +104,9 @@ const SearchEngine = props => {
             // ng-change="search_engine.changeJobTitle()"
             />
           </div>
-          <div className="input-group form-control-wrap pl-2">
+          <div className="input-group form-control-wrap pl-2 align-items-center">
             <div className="input-group-prepend inputIcon">
-              <span className="input-group-text px-1 pt-2 pt-sm-2 pt-md-0">
+              <span className="input-group-text px-1 py-0 mr-2">
                 <i className="fas fa-map-marker-alt"></i>
               </span>
             </div>

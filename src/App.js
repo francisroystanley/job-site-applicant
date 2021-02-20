@@ -11,6 +11,9 @@ import Home from "./features/home";
 import SignIn from "./features/signin";
 import Register from "./features/register";
 import ForgotPassword from "./features/forgot-password";
+import PrivacyPolicy from "./features/privacy-policy";
+import TermsCondition from "./features/terms-and-conditions";
+import LegitimatePurpose from "./features/legitimate-purpose";
 
 
 const App = () => {
@@ -35,6 +38,9 @@ const App = () => {
             <Route component={CareerSearch} />
             <Redirect to="/career/search" />
           </Route> */}
+        <Route exact path="/privacy_policy" component={PrivacyPolicy} />
+        <Route exact path="/terms_and_conditions" component={TermsCondition} />
+        <Route exact path="/legitimate_purpose" component={LegitimatePurpose} />
         <Route exact path="/404" component={ErrorPage} />
         <Redirect to="/404" />
       </Switch>

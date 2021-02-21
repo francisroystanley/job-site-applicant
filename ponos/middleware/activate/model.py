@@ -9,5 +9,4 @@ class Activate(object):
         self.__args = args
 
     def activate_login(self):
-        self.__activate = self.__api_vprofile.activate_login(self.__resource, self.__args)
-        return self.__activate
+        return self.__api_vprofile.activate_login(self.__resource, self.__args)

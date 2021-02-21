@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import WOW from 'wowjs';
+import { WOW } from 'wowjs';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import NavBar from './Navbar';
 import Footer from './Footer';
 import ErrorPage from './features/error';
 import { BlockUI } from './commons';
+import { AyalaLand, BPI, GlobeTelecom, ManilaWater } from "./features/about-us/ayala";
 import Career from "./features/career";
 import Home from "./features/home";
 import SignIn from "./features/signin";
@@ -17,7 +18,7 @@ import LegitimatePurpose from "./features/legitimate-purpose";
 
 
 const App = () => {
-  const wow = new WOW.WOW({
+  const wow = new WOW({
     live: false
   });
   wow.init();
@@ -33,6 +34,10 @@ const App = () => {
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/forgotpassword" component={ForgotPassword} />
+        <Route exact path="/about-us/ayala-land" component={AyalaLand} />
+        <Route exact path="/about-us/bpi" component={BPI} />
+        <Route exact path="/about-us/globe-telecom" component={GlobeTelecom} />
+        <Route exact path="/about-us/manila-water" component={ManilaWater} />
         <Route exact path="/career" component={Career} />
         {/* <Route exact path="/career">
             <Route component={CareerSearch} />

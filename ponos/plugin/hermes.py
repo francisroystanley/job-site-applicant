@@ -12,9 +12,7 @@ class HermesApi(object):
 
     def init_app(self, app):
         self.__api_url = app.config['HERMES_API']
-        self.__headers = {
-            'x-app-shortname': app.config['HERMES_APPNAME']
-        }
+        self.__headers = {'x-app-shortname': app.config['HERMES_APPNAME']}
         self.__headers['Content-Type'] = 'application/json'
         self.__auth = HTTPBasicAuth(app.config['HERMES_USER'], app.config['HERMES_PWD'])
         self.__key = app.config['SECRET_KEY']
@@ -70,7 +68,6 @@ class HermesApi(object):
         req = Request(method, url, params=params, json=data, auth=self.__auth, headers=self.__headers)
         prepped = req.prepare()
         res = s.send(prepped, timeout=30)
-
         if res.status_code == 200:
             try:
                 retval = self.__strip(res.json())
@@ -84,6 +81,7 @@ class HermesApi(object):
                     'status': 'error',
                     'message': 'Unexpected error'
                 }
+
         elif res.status_code == 403:
             retval = {
                 'status': 'failed',
@@ -103,19 +101,23 @@ class HermesApi(object):
         url = self.__get_url(resource, data)
         self.__headers.pop('Content-Type', None)
         self.__app.logger.debug(data)
+
         return self.__request('GET', url, params=data)
 
     def save(self, resource, data=None):
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('POST', url, data=data)
 
     def update(self, resource, data=None):
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('PATCH', url, data)
 
     def delete(self, resource, data=None):
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('DELETE', url, data)

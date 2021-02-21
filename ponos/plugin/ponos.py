@@ -14,9 +14,7 @@ class PonosApi(object):
 
     def init_app(self, app):
         self.__api_url = app.config['PONOS_API']
-        self.__headers = {
-            'x-app-shortname': app.config['PONOS_APPNAME']
-        }
+        self.__headers = {'x-app-shortname': app.config['PONOS_APPNAME']}
         self.__headers['Content-Type'] = 'application/json'
         self.__auth = HTTPBasicAuth(app.config['PONOS_USER'], app.config['PONOS_PWD'])
         self.__key = app.config['SECRET_KEY']
@@ -78,8 +76,10 @@ class PonosApi(object):
             key_c = key[i % len(key)]
             encoded_c = chr(ord(string[i]) + ord(key_c) % 256)
             encoded_chars.append(encoded_c)
+
         encoded_string = ''.join(encoded_chars)
         encoded = base64.urlsafe_b64encode(encoded_string.encode('utf-8'))
+
         return encoded.decode('utf-8')
 
     def decode_id(self, string, key=None):
@@ -98,6 +98,7 @@ class PonosApi(object):
                 data_string = base64.urlsafe_b64decode(data_string).decode('utf-8')
             except Exception as e:
                 self.__app.logger.error('ERR encoding: {}, {}'.format(data_string, e))
+
                 return data_string
 
             for i in range(len(data_string)):
@@ -108,9 +109,7 @@ class PonosApi(object):
             decoded_string = ''.join(decoded_chars)
             data_string_output_array.append(decoded_string)
 
-        data_string_output = '+'.join(data_string_output_array)
-
-        return data_string_output
+        return '+'.join(data_string_output_array)
 
     def __decode(self, data):
         if isinstance(data, dict):
@@ -191,7 +190,6 @@ class PonosApi(object):
         req = Request(method, url, params=params, json=data, auth=self.__auth, headers=self.__headers)
         prepped = req.prepare()
         res = s.send(prepped, timeout=30)
-
         if res.status_code == 200:
             try:
                 retval = self.__strip(res.json())
@@ -231,22 +229,26 @@ class PonosApi(object):
         url = self.__get_url(resource, data)
         self.__headers.pop('Content-Type', None)
         self.__app.logger.debug(data)
+
         return self.__request('GET', url, params=data)
 
     def save(self, resource, data=None):
         data = self.__decode(data)
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('POST', url, data=data)
 
     def update(self, resource, data=None):
         data = self.__decode(data)
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('PATCH', url, data)
 
     def delete(self, resource, data=None):
         data = self.__decode(data)
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('DELETE', url, data)

@@ -9,9 +9,8 @@ from .model import Auth, UserAuth, Profile
 class LinkedInAuthRequestHandler(Resource):
     def get(self):
         url = Auth().get()
-        retval = {
-            'url': url
-        }
+        retval = {'url': url}
+
         return retval
 
 
@@ -23,13 +22,14 @@ class LinkedInAuthCallbackHandler(Resource):
             self.__reqparse.add_argument('state', type=str)
             self.__reqparse.add_argument('X-Forwarded-For', type=str, dest='ip', location='headers')
             self.__reqparse.add_argument('User-Agent', type=str, dest='ua', location='headers')
+
         self.__args = self.__reqparse.parse_args()
 
     def get(self):
         retval = {}
-
         if self.__args.get('code') is None:
             url = url_for('login', src='linkedin', status='failed')
+
             return redirect(url)
 
         if self.__args.get('ip', None) is None:
@@ -37,14 +37,12 @@ class LinkedInAuthCallbackHandler(Resource):
 
         device = user_agent_parser.Parse(self.__args['ua'])
         self.__args['device'] = device['os']['family']
-
         auth = Auth().authenticate(self.__args)
         access_token = auth.get('access_token')
         if access_token is not None:
             profile = Profile(access_token)
             user = profile.get()
             user['src'] = 'linkedin'
-
             if current_user.is_authenticated:
                 retval = url_for('index')
             else:
@@ -52,10 +50,8 @@ class LinkedInAuthCallbackHandler(Resource):
                     'acct_code': current_app.config['GROUP_CODE'],
                     'user_type': 'WEB'
                 }
-
                 self.__args.pop('code')
                 self.__args.pop('state')
-
                 self.__args['id'] = profile.id
                 self.__args['accountcode'] = current_app.config['GROUP_CODE']
                 self.__args['company_code'] = 'PONOS'
@@ -72,6 +68,7 @@ class LinkedInAuthCallbackHandler(Resource):
                     else:
                         user['code'] = request.args.get('code')
                         retval = url_for('register', **user)
+
         else:
             retval = url_for('signin', src='linkedin', status='failed')
 

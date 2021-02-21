@@ -2,6 +2,13 @@ import PropTypes from 'prop-types';
 
 
 const JobCardsList = ({ list }) => {
+  const bu = [
+    { name: 'Ayala Land', logo: '/assets/images/ayala/ayala-land.svg' },
+    { name: 'BPI', logo: '/assets/images/ayala/bpi.svg' },
+    { name: 'Globe Telecom', logo: '/assets/images/ayala/globe-telecom.svg' },
+    { name: 'Manila Water', logo: '/assets/images/ayala/manila-water.svg' }
+  ];
+
   return (
     <ul className="jobCards-list row">
       {list.map((jobad, idx) => (
@@ -13,15 +20,17 @@ const JobCardsList = ({ list }) => {
             </div>
             <div className="company">
               <div className="agencyLogo">
-                {jobad.businessunit && <img src={jobad.businessunit.logo_image} />}
+                {/* {jobad.businessunit && <img src={jobad.businessunit.logo_image} />} */}
+                <img src={bu[jobad.randNum].logo} />
               </div>
-              {jobad.businessunit && <h4 className="h4 agencyName">{jobad.businessunit.businessunit_name}</h4>}
+              {/* {jobad.businessunit && <h4 className="h4 agencyName">{jobad.businessunit.businessunit_name}</h4>} */}
+              {<h4 className="h4 agencyName">{bu[jobad.randNum].name}</h4>}
             </div>
             <div className="details row">
               <div className="col-12 mb-2 positionTitle visible d-flex justify-content-center align-items-center" id="jobad_jobtitle">
                 <span className="line-clamp text-break">{jobad.job_title}</span>
               </div>
-              <div className="location col-12">{jobad.province.province_name + ', PHILIPPINES'}</div>
+              {jobad.province && <div className="location col-12">{jobad.province.province_name + ', PHILIPPINES'}</div>}
               <ul className="description col-12 row justify-content-center align-items-center" id="jobad_description">
                 {jobad.job_level_name && <li className="mb-0 col-12">{jobad.job_level_name}</li>}
                 {jobad.job_class_name && <li className="mb-0 col-12">{jobad.job_class_name}</li>}

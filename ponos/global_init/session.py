@@ -10,5 +10,5 @@ def setup_mongo_session(app):
         'authentication_source': app.config['MONGO_AUTHDB'],
         'connect': False
     }
-    mongo = connect(**server)
-    return mongo
+
+    return connect(**server)

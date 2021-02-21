@@ -56,17 +56,14 @@ class LoginHandler(Resource):
 
     def post(self):
         retval = {}
-
         login_params = {
             'acct_code': app.config['GROUP_CODE'],
             'user_type': 'WEB'
         }
-
         self.__args['accountcode'] = app.config['GROUP_CODE']
         self.__args['company_code'] = 'PONOS'
         self.__args['user_type'] = 'WEB'
         self.__args['login_params'] = login_params
-
         if self.__args.get('ip', None) is None:
             self.__args['ip'] = request.remote_addr
 
@@ -117,7 +114,6 @@ class PasswordResetHandler(Resource):
 
         device = user_agent_parser.Parse(self.__args['ua'])
         self.__args['device'] = device['os']['family']
-
         user = User(**self.__args)
         if user.is_exist:
             reset_token = user.generate_reset_token()
@@ -127,9 +123,7 @@ class PasswordResetHandler(Resource):
     def get(self):
         self.__reqparse.add_argument('reset_token', type=str, required=True)
         self.__args = self.__reqparse.parse_args()
-
         retval = {}
-
         user = User.validate_token(**self.__args)
         if user.is_exist:
             retval['status'] = 'SUCCESS'
@@ -142,9 +136,7 @@ class PasswordResetHandler(Resource):
         self.__reqparse.add_argument('reset_token', type=str, required=True)
         self.__reqparse.add_argument('password', type=str, required=True)
         self.__args = self.__reqparse.parse_args()
-
         retval = {}
-
         user = User.validate_token(**self.__args)
         if user.is_exist:
             user.update_password(self.__args['password'])
@@ -168,10 +160,8 @@ class MeHandler(Resource):
         self.__userdata = current_user.info
         self.__args['id'] = self.__userdata['uuid']
         self.__args['acct_code'] = self.__userdata['acct_code']
-
         users = Users(self.__args)
         retval = users.get()
-
         if retval['status'] == 'SUCCESS':
             login_info = []
             for data in retval['data']:
@@ -223,8 +213,8 @@ class UserGroupHandler(Resource):
         self.__args['acct_code'] = self.__userdata['acct_code']
         if login_uuid == 'me':
             login_uuid = self.__userdata['uuid']
-        self.__args['login_uuid'] = login_uuid
 
+        self.__args['login_uuid'] = login_uuid
         user_group = UserGroup(self.__args)
         retval = user_group.get()
 
@@ -241,37 +231,30 @@ class UserParamsHandler(Resource):
         self.__userdata = current_user.info
         self.__args['acct_code'] = self.__userdata['acct_code']
         self.__args['login_uuid'] = login_uuid
-
         user_params = UserParams(self.__args)
-        retval = user_params.get()
 
-        return retval
+        return user_params.get()
 
     @login_required
     def patch(self, login_uuid):
         self.__userdata = current_user.info
         self.__args['acct_code'] = self.__userdata['acct_code']
         self.__args['login_uuid'] = login_uuid
-
         self.__args['params'] = {
             'acct_code': current_app.config['GROUP_CODE'],
             'location_code': self.__args.get('location_code'),
             'agent_code': self.__args.get('agent_code')
         }
         self.__args['location_code'] = self.__args['main_location_code']
-
         login_args = {
             'id': login_uuid,
             'login_user': self.__userdata['agent_code'],
             'location_code': self.__args['location_code']
         }
-
         Users(login_args).update()
-
         user_params = UserParams(self.__args)
-        retval = user_params.update()
 
-        return retval
+        return user_params.update()
 
 
 class UserPasswordHandler(Resource):
@@ -284,6 +267,7 @@ class UserPasswordHandler(Resource):
         elif request.method in ('PATCH'):
             self.__reqparse.add_argument('old_password', type=str, required=True)
             self.__reqparse.add_argument('new_password', type=str, required=True)
+
         self.__args = self.__reqparse.parse_args()
 
     @login_required
@@ -291,22 +275,18 @@ class UserPasswordHandler(Resource):
         self.__userdata = current_user.info
         self.__args['acct_code'] = self.__userdata['acct_code']
         self.__args['login_uuid'] = self.__userdata['uuid']
-
         user_password = UserPassword(self.__args)
-        retval = user_password.update()
 
-        return retval
+        return user_password.update()
 
     @login_required
     def post(self, login_uuid):
         self.__userdata = current_user.info
         self.__args['acct_code'] = self.__userdata['acct_code']
         self.__args['login_uuid'] = login_uuid
-
         user_password = UserPassword(self.__args)
-        retval = user_password.save()
 
-        return retval
+        return user_password.save()
 
 
 class UserPolicyHandler(Resource):
@@ -320,23 +300,20 @@ class UserPolicyHandler(Resource):
         self.__args['acct_code'] = self.__userdata['acct_code']
         if login_uuid == 'me':
             login_uuid = self.__userdata['uuid']
+
         self.__args['login_uuid'] = login_uuid
-
         policy = UserPolicy(self.__args)
-        retval = policy.get()
 
-        return retval
+        return policy.get()
 
     @login_required
     def post(self, login_uuid):
         self.__userdata = current_user.info
         self.__args['acct_code'] = self.__userdata['acct_code']
         self.__args['login_uuid'] = login_uuid
-
         policy = UserPolicy(self.__args)
-        retval = policy.save()
 
-        return retval
+        return policy.save()
 
     @login_required
     def delete(self, login_uuid, id):
@@ -344,11 +321,9 @@ class UserPolicyHandler(Resource):
         self.__args['acct_code'] = self.__userdata['acct_code']
         self.__args['login_uuid'] = login_uuid
         self.__args['id'] = id
-
         policy = UserPolicy(self.__args)
-        retval = policy.delete()
 
-        return retval
+        return policy.delete()
 
 
 class UserPhotoHandler(Resource):
@@ -356,6 +331,7 @@ class UserPhotoHandler(Resource):
         self.__reqparse = reqparse.RequestParser()
         if request.method in ('POST'):
             self.__reqparse.add_argument('file', type=werkzeug.FileStorage, required=True, location='files')
+
         self.__args = self.__reqparse.parse_args()
 
     @login_required
@@ -365,7 +341,6 @@ class UserPhotoHandler(Resource):
         self.__args['group_code'] = self.__userdata['acct_code']
         self.__args['created_by'] = self.__userdata['login_name']
         retval = {}
-
         if person_id != 'me':
             return {'status', 'Invalid Path'}, 403
         else:
@@ -376,9 +351,8 @@ class UserPhotoHandler(Resource):
         file_name, key = user_photo.generate_filename(str(file_data))
         request_data = user_photo.request_file_upload(file_name, key)
         user_photo.upload(**request_data, file=file_data)
-        retval = user_photo.save(file_name, key)
 
-        return retval
+        return user_photo.save(file_name, key)
 
 
 class UserResumeHandler(Resource):
@@ -387,6 +361,7 @@ class UserResumeHandler(Resource):
         if request.method in ('POST'):
             self.__reqparse.add_argument('file', type=werkzeug.FileStorage, required=True, location='files')
             self.__reqparse.add_argument('file_name', type=str, required=True)
+
         self.__args = self.__reqparse.parse_args()
 
     @login_required
@@ -395,14 +370,11 @@ class UserResumeHandler(Resource):
         self.__args['acct_code'] = self.__userdata['acct_code']
         self.__args['group_code'] = self.__userdata['acct_code']
         self.__args['created_by'] = self.__userdata['login_name']
-
         self.__args['field_group'] = 'RESUME'
         self.__args['field_code'] = 'RESUME'
         self.__args['field_type'] = 'STR'
         self.__args['field_description'] = self.__args['file_name']
-
         retval = {}
-
         if person_id != 'me':
             return {'status': 'Invalid Path'}, 403
         else:
@@ -413,6 +385,5 @@ class UserResumeHandler(Resource):
         file_name, key = user_resume.generate_filename(str(file_data))
         request_data = user_resume.request_file_upload(file_name, key)
         user_resume.upload(**request_data, file=file_data)
-        retval = user_resume.save(file_name, key)
 
-        return retval
+        return user_resume.save(file_name, key)

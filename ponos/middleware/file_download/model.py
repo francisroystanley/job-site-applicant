@@ -12,6 +12,7 @@ class File(GenericModel):
 
     def download(self, path):
         retval = requests.get(path)
+
         return retval.content
 
     def upload(self):
@@ -65,10 +66,8 @@ class Image(File):
     def get(self):
         retval = super().get()
         if not retval['storage']:
-            retval = {
-                'status': 'FAILED'
-            }
-            return retval
+            return {'status': 'FAILED'}
+
         self.__url = retval['storage'][0]['request']['url']
 
         return retval

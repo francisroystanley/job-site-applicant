@@ -32,26 +32,21 @@ class EmailVerifyHandler(Resource):
     @login_required
     def post(self):
         self.__userdata = current_user.info
-
         token_data = {
             'token_type': 'LOGIN_ACTIVATION',
             'login_uuid': self.__userdata['uuid']
         }
-
         get_token = Token(token_data)
         retval_token = get_token.get()
         token_param = retval_token['token'][0]['token']
-
         client_url = url_for('index', login_name=None, _external=True, _scheme='https')
         activation_url = '{}activate?code={}&email={}'.format(client_url, token_param, self.__userdata['person']['email'])
-
         data = {
             'client_code': app.config['CLIENT_CODE'],
             'name': self.__userdata['person']['firstname'],
             'link': activation_url,
             'img_link': client_url + 'static/assets/images/{}/email-logo.png'.format(app.config['CLIENT_CODE'].lower())
         }
-
         email_template = render_template('email/email-sign-up.html', data=data)
         email_data = {
             'body': '{} Recruitment Email Verification'.format(app.config['CLIENT_CODE']),
@@ -61,13 +56,10 @@ class EmailVerifyHandler(Resource):
             'subject': '{} Recruitment Email Verification'.format(app.config['CLIENT_CODE']),
             'acct_code': app.config['GROUP_CODE']
         }
-
         email = Email(email_data)
         email.save()
 
-        retval = {
+        return {
             'status': 'SUCCESS',
             'email': self.__userdata['person']['email']
         }
-
-        return retval

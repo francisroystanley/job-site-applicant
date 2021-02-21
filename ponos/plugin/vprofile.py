@@ -14,9 +14,7 @@ class VProfile(object):
 
     def init_app(self, app):
         self.__api_url = app.config['VPROFILE_API']
-        self.__headers = {
-            'x-app-shortname': app.config['VPROFILE_APPNAME']
-        }
+        self.__headers = {'x-app-shortname': app.config['VPROFILE_APPNAME']}
         self.__headers['Content-Type'] = 'application/json'
         self.__auth = HTTPBasicAuth(app.config['VPROFILE_USER'], app.config['VPROFILE_PWD'])
         self.__key = app.config['SECRET_KEY']
@@ -45,19 +43,20 @@ class VProfile(object):
         data = self.__decode(data)
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('POST', url, data)
 
     def authenticate_token(self, data):
         resource = 'authenticate_auth_token'
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('POST', url, data)
 
     def __decode(self, data):
         return data
 
     def __get_url(self, resource, data, endpoint=None):
-
         if endpoint is None:
             endpoint = self.__resources.get(resource, None)
 
@@ -110,7 +109,6 @@ class VProfile(object):
         req = Request(method, url, params=params, json=data, auth=self.__auth, headers=headers)
         prepped = req.prepare()
         res = s.send(prepped, timeout=30)
-
         if res.status_code == 200:
             try:
                 retval = self.__strip(res.json())
@@ -126,6 +124,7 @@ class VProfile(object):
                     'status': 'error',
                     'message': 'Unexpected error'
                 }
+
         elif res.status_code == 400:
             try:
                 retval = self.__strip(res.json())
@@ -141,6 +140,7 @@ class VProfile(object):
                     'status': 'error',
                     'message': 'Unexpected error'
                 }
+
         elif res.status_code == 403:
             self.__app.logger.info(f'{res.status_code} {res.text}')
             retval = {
@@ -155,6 +155,7 @@ class VProfile(object):
             }
 
         self.__app.logger.info(f'{url} ({res.status_code})')
+
         return retval
 
     def activate_login(self, resource, data=None):
@@ -168,6 +169,7 @@ class VProfile(object):
             retval = None
 
         self.__app.logger.info('Request {}: {}'.format(url, res.status_code))
+
         return retval
 
     def token(self, data):
@@ -175,32 +177,36 @@ class VProfile(object):
         url = '{}{}'.format(self.__api_url, endpoint)
         self.__app.logger.info('Request {}'.format(url))
         res = get(url, json=data, auth=self.__auth, headers=self.__headers, timeout=5)
-
         try:
             retval = res.json()
         except:
             retval = None
 
         self.__app.logger.info('Request {}: {}'.format(url, res.status_code))
+
         return retval
 
     def get(self, resource, data=None):
         data = self.__decode(data)
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('GET', url, params=data)
 
     def save(self, resource, data=None):
         data = self.__decode(data)
         url = self.__get_url(resource, data)
+
         return self.__request('POST', url, data=data)
 
     def update(self, resource, data=None):
         data = self.__decode(data)
         url = self.__get_url(resource, data)
+
         return self.__request('PATCH', url, data)
 
     def delete(self, resource, data=None):
         data = self.__decode(data)
         url = self.__get_url(resource, data)
+
         return self.__request('DELETE', url, data)

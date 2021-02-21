@@ -1,9 +1,7 @@
 from flask import request
 from flask_restful import Resource, reqparse
 
-from ..document import JobClassSchema
-
-import re
+import json
 
 
 class JobClassHandler(Resource):
@@ -15,10 +13,10 @@ class JobClassHandler(Resource):
         self.__args = self.__reqparse.parse_args()
 
     def get(self):
-        job_class_name = self.__args['job_class_name']
-        regex = re.compile('.*{}.*'.format(job_class_name), re.IGNORECASE)
         job_class_collection = []
-        job_classes = JobClassSchema.objects(job_class_name=regex)
+        f = open("config/job_class.json", "r+", encoding="utf-8")
+        config_output = f.read()
+        job_classes = json.loads(config_output)['job_class']
 
         for job_class in job_classes:
             job_class_data = {

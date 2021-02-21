@@ -1,1 +1,1 @@
-from .controller import PlaceHandler, CityHandler, ProvinceHandler
+from .controller import CityHandler, CountryHandler, ProvinceHandler

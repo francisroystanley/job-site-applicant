@@ -7,8 +7,14 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   let el = document.createElement('div');
-  const entities = useSelector(({ businessUnit }) => businessUnit);
+  // const entities = useSelector(({ businessUnit }) => businessUnit);
   const env = useSelector(({ env }) => env);
+  const entities = [
+    { name: 'Ayala Land', code: 'ayala-land' },
+    { name: 'BPI', code: 'bpi' },
+    { name: 'Globe Telecom', code: 'globe-telecom' },
+    { name: 'Manila Water', code: 'manila-water' }
+  ];
   let isLoggedIn = false;
   let parentElem = document.body;
 
@@ -79,8 +85,8 @@ const NavBar = () => {
             </Nav.Item>
             <NavDropdown title="About Us" id="basic-nav-dropdown">
               {entities.map(entity =>
-                <NavDropdown.Item key={entity.businessunit_code} as={Link} to={`${ entity.businessunit_code.toLowerCase() }`}>
-                  {entity.businessunit_name}
+                <NavDropdown.Item key={entity.code} as={Link} to={`/about-us/${ entity.code }`}>
+                  {entity.name}
                 </NavDropdown.Item>
               )}
             </NavDropdown>

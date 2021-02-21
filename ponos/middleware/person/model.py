@@ -43,9 +43,8 @@ class PersonAttachment(GenericModel):
     def generate_key(self, file):
         m = hashlib.md5()
         m.update(file.encode('utf-8'))
-        data = m.hexdigest()
 
-        return data
+        return m.hexdigest()
 
     def request_file_upload(self, filetype, filename, key):
         data = {
@@ -69,9 +68,8 @@ class PersonAttachment(GenericModel):
         files = {
             'file': file
         }
-        retval = requests.post(url, data=fields, files=files)
 
-        return retval
+        return requests.post(url, data=fields, files=files)
 
 
 class PersonCertificate(GenericModel):

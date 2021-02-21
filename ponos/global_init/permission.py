@@ -15,8 +15,11 @@ def require_permission(required_permission):
             if not allowed:
                 http_stat = 403
                 retval = {'message': 'No Permission'}
+
                 return retval, http_stat
             else:
                 return function(self, *args, **kwargs)
+
         return ret_fn
+
     return wrapper

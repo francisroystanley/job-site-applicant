@@ -68,6 +68,12 @@ img#navbar-brand {
   }
 }
 
+@media (min-width: 420px) and (max-width: 767px) {
+  .main-body {
+    padding-top: 110px;
+  }
+}
+
 .push,
 .bodyContents,
 .bodyContents-section {

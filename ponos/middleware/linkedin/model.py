@@ -25,8 +25,8 @@ class Auth(object):
         }
         req = Request('GET', f'{self.host}{url}', params=data)
         prep = req.prepare()
-        retval = f'{self.host}{prep.path_url}'
-        return retval
+
+        return f'{self.host}{prep.path_url}'
 
     def authenticate(self, args):
         url = '/oauth/v2/accessToken'
@@ -37,7 +37,6 @@ class Auth(object):
             'client_id': linkedin.client_id,
             'client_secret': linkedin.client_secret
         }
-
         res = post(f'{self.host}{url}', data=data)
 
         return res.json()
@@ -66,6 +65,7 @@ class Profile(object):
             }
         else:
             retval = None
+
         return retval
 
     def _get_email(self):
@@ -74,11 +74,11 @@ class Profile(object):
         for e in retval.get('elements', []):
             if e['primary'] is True and e['type'] == 'EMAIL':
                 email = e['handle~']['emailAddress']
+
         return email
 
 
 class UserAuth(User):
-
     @classmethod
     def authenticate(cls, accountcode, id, ua, ip, device, **kwargs):
         self = cls()
@@ -96,9 +96,7 @@ class UserAuth(User):
         res = vprofile.authenticate_token(self.__args)
         if res is not None and res.get('status', None) == 'SUCCESS':
             self._User__user = {**res, **self.__args}
-
             self._User__user['expiry'] = datetime.utcnow() + timedelta(hours=1)
-
             self._User__user['group_code'] = accountcode
             res_login = self.get_login()
             if len(res_login) > 0:
@@ -109,7 +107,6 @@ class UserAuth(User):
                     self._User__user['person'] = person[0]
 
             self._User__user['last_login'] = datetime.strptime(self._User__user['last_login'], '%Y-%m-%dT%H:%M:%S.%fZ')
-
             self._User__session = UserSessionSchema(**self._User__user)
             self._User__session.save()
             self._User__session_token = str(self._User__session.id)
@@ -124,7 +121,6 @@ class UserAuth(User):
             'acct_code': self.__args['acct_code'],
             'login_name': email
         }
-
         res = vprofile.get('users', args)
         if res.get('total_count') > 0:
             retval = True

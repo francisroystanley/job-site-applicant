@@ -1,8 +1,6 @@
 import os
 import logging
 
-from logging.handlers import RotatingFileHandler
-
 
 def setup_logger(app):
     if os.path.exists('log') is False:
@@ -25,13 +23,10 @@ def setup_logger(app):
 
     # app.logger.addHandler(handler)
     app.logger.setLevel(loglevel)
-
     log = logging.getLogger('werkzeug')
     if app.config.get('DEBUG', False):
         log.setLevel(logging.INFO)
     else:
         log.setLevel(logging.ERROR)
 
-    logger = app.logger
-
-    return logger
+    return app.logger

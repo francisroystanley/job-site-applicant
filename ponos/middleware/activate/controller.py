@@ -1,6 +1,6 @@
 from flask import request
 from flask_restful import Resource, reqparse
-from flask_login import login_required, current_user, login_user
+from flask_login import login_user
 from ua_parser import user_agent_parser
 
 from ponos.global_init import app, limiter
@@ -26,24 +26,18 @@ class ActivateHandler(Resource):
         }
         activate = Activate(data)
         retval = activate.activate_login()
-
         if retval['status'] == 'SUCCESS':
             if self.__args.get('ip', None) is None:
                 self.__args['ip'] = request.remote_addr
 
             device = user_agent_parser.Parse(self.__args['ua'])
             self.__args['device'] = device['os']['family']
-
-            login_data = {
-                'login_name': self.__args['email']
-            }
+            login_data = {'login_name': self.__args['email']}
             users = Users(login_data)
             login_retval = users.get()
-
             if login_retval['status'] == 'SUCCESS':
                 login_info = {}
                 for data in login_retval['data']:
-
                     login_info['accountcode'] = app.config['GROUP_CODE']
                     login_info['auth_provider'] = 'login'
                     login_info['auth_token'] = ''

@@ -9,7 +9,6 @@ from .model import PersonConsent, PersonDetail, PersonEducation, PersonIdentific
 from .model import PersonLicense, PersonPortfolio, PersonPreference, PersonSkill
 from .model import PersonSocialLink, PersonTraining, PersonWorkHistory
 from ..consent import Consent
-from ..document import CitySchema
 from ..user.model import User, Users, UserPerson, UserAuthToken
 from ..linkedin import Auth
 from ..token import Token
@@ -31,6 +30,7 @@ class PersonHandler(Resource):
             self.__reqparse.add_argument('email', type=str, default=None)
             self.__reqparse.add_argument('contact_number', type=str, default=None)
             self.__reqparse.add_argument('nationality', type=str, default=None)
+
         self.__args = self.__reqparse.parse_args()
 
     @login_required
@@ -38,29 +38,23 @@ class PersonHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['id'] = self.__userdata['person']['id']
-
         person = Person(self.__args)
-        retval = person.get()
 
-        return retval
+        return person.get()
 
     @login_required
     def patch(self):
         self.__userdata = current_user.info
-
         person_data = self.__userdata['person']
         for key in self.__args:
             if self.__args[key] is not None:
-
                 person_data[key] = self.__args[key]
 
         person_data['group_code'] = self.__userdata['group_code']
         person_data['login_user'] = self.__userdata['login_name']
-
         person = Person(person_data)
-        retval = person.update()
 
-        return retval
+        return person.update()
 
 
 class PersonProfileAffiliationHandler(Resource):
@@ -80,11 +74,9 @@ class PersonProfileAffiliationHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_affiliation = PersonAffiliation(self.__args)
-        retval = person_affiliation.get()
 
-        return retval
+        return person_affiliation.get()
 
     @login_required
     def post(self):
@@ -92,7 +84,6 @@ class PersonProfileAffiliationHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -100,9 +91,8 @@ class PersonProfileAffiliationHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         person_affiliation = PersonAffiliation(self.__args)
-        retval = person_affiliation.save()
 
-        return retval
+        return person_affiliation.save()
 
     @login_required
     def patch(self, id):
@@ -110,7 +100,6 @@ class PersonProfileAffiliationHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -118,18 +107,12 @@ class PersonProfileAffiliationHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_affiliation = PersonAffiliation(self.__args)
-        retval = person_affiliation.update()
 
-        return retval
+        return person_affiliation.update()
 
     @login_required
     def delete(self, id=None):
@@ -138,17 +121,12 @@ class PersonProfileAffiliationHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_affiliation = PersonAffiliation(self.__args)
-        retval = person_affiliation.delete()
 
-        return retval
+        return person_affiliation.delete()
 
 
 class PersonProfileAttachmentHandler(Resource):
@@ -178,9 +156,8 @@ class PersonProfileAttachmentHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
         person_attachment = PersonAttachment(self.__args)
-        retval = person_attachment.get()
 
-        return retval
+        return person_attachment.get()
 
     @login_required
     def post(self):
@@ -199,9 +176,8 @@ class PersonProfileAttachmentHandler(Resource):
         self.__args['file_name'] = file_name
         self.__args['path'] = path
         self.__args['key'] = key
-        retval = attachment.save()
 
-        return retval
+        return attachment.save()
 
     @login_required
     def patch(self, id):
@@ -213,11 +189,8 @@ class PersonProfileAttachmentHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         self.__args['id'] = id
-
         person_attachment = PersonAttachment(self.__args)
-        retval = person_attachment.update()
-
-        return retval
+        return person_attachment.update()
 
     @login_required
     def delete(self, id):
@@ -230,9 +203,7 @@ class PersonProfileAttachmentHandler(Resource):
         self.__args['person_id'] = self.__userdata['person']['id']
         self.__args['id'] = id
         person_attachment = PersonAttachment(self.__args)
-        retval = person_attachment.delete()
-
-        return retval
+        return person_attachment.delete()
 
 
 class PersonProfileCertificateHandler(Resource):
@@ -253,11 +224,8 @@ class PersonProfileCertificateHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_certificate = PersonCertificate(self.__args)
-        retval = person_certificate.get()
-
-        return retval
+        return person_certificate.get()
 
     @login_required
     def post(self):
@@ -265,11 +233,8 @@ class PersonProfileCertificateHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_certificate = PersonCertificate(self.__args)
-        retval = person_certificate.save()
-
-        return retval
+        return person_certificate.save()
 
     @login_required
     def patch(self, id):
@@ -277,20 +242,12 @@ class PersonProfileCertificateHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_certificate = PersonCertificate(self.__args)
-        retval = person_certificate.update()
-
-        return retval
+        return person_certificate.update()
 
     @login_required
     def delete(self, id=None):
@@ -299,17 +256,11 @@ class PersonProfileCertificateHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_certificate = PersonCertificate(self.__args)
-        retval = person_certificate.delete()
-
-        return retval
+        return person_certificate.delete()
 
 
 class PersonProfileConsentHandler(Resource):
@@ -322,6 +273,7 @@ class PersonProfileConsentHandler(Resource):
             self.__reqparse.add_argument('consent_code', type=str, required=True)
             self.__reqparse.add_argument('businessunit_code', type=str, required=True)
             self.__reqparse.add_argument('subscribe', type=str, required=True)
+
         self.__args = self.__reqparse.parse_args()
 
     @login_required
@@ -329,23 +281,18 @@ class PersonProfileConsentHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is not None:
             self.__args['id'] = id
 
         person_consent = PersonConsent(self.__args)
-        retval = person_consent.get()
-
-        return retval
+        return person_consent.get()
 
     @login_required
     def post(self):
         self.__userdata = current_user.info
         consents = self.__args['consent_code']
-
         for code in consents.split('|'):
             consent = Consent({'consent_code': code, 'group_code': self.__userdata['group_code']}).get()
-
             consentData = {
                 'consent_code': consent['consent'][0]['consent_code'],
                 'consent_name': consent['consent'][0]['consent_name'],
@@ -356,7 +303,6 @@ class PersonProfileConsentHandler(Resource):
                 'created_by': self.__userdata['login_name'],
                 'person_id': self.__userdata['person']['id']
             }
-
             person_consent = PersonConsent(consentData)
             retval = person_consent.save()
 
@@ -368,20 +314,12 @@ class PersonProfileConsentHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_consent = PersonConsent(self.__args)
-        retval = person_consent.update()
-
-        return retval
+        return person_consent.update()
 
     @login_required
     def delete(self, id=None):
@@ -390,17 +328,12 @@ class PersonProfileConsentHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_consent = PersonConsent(self.__args)
-        retval = person_consent.delete()
 
-        return retval
+        return person_consent.delete()
 
 
 class PersonProfileDetailHandler(Resource):
@@ -420,11 +353,9 @@ class PersonProfileDetailHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_detail = PersonDetail(self.__args)
-        retval = person_detail.get()
 
-        return retval
+        return person_detail.get()
 
     @login_required
     def post(self):
@@ -433,7 +364,6 @@ class PersonProfileDetailHandler(Resource):
         self.__userdata = current_user.info
         person_id = self.__userdata['person']['id']
         fields = self.__args['fields']['field_list']
-
         for field in fields:
             if 'old_value' in field:
                 if 'code' in field['old_value'] and 'code' in field['value']:
@@ -476,11 +406,8 @@ class PersonProfileDetailHandler(Resource):
     def delete(self, id):
         self.__userdata = current_user.info
         person_id = self.__userdata['person']['id']
-
         if id is None:
-            retval = {'status': 'FAILED'}
-
-            return retval
+            return {'status': 'FAILED'}
 
         for i in id.split('|'):
             retval = PersonDetail({
@@ -514,11 +441,9 @@ class PersonProfileEducationHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_education = PersonEducation(self.__args)
-        retval = person_education.get()
 
-        return retval
+        return person_education.get()
 
     @login_required
     def post(self):
@@ -526,7 +451,6 @@ class PersonProfileEducationHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -534,9 +458,8 @@ class PersonProfileEducationHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         person_education = PersonEducation(self.__args)
-        retval = person_education.save()
 
-        return retval
+        return person_education.save()
 
     @login_required
     def patch(self, id):
@@ -544,7 +467,6 @@ class PersonProfileEducationHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -552,18 +474,12 @@ class PersonProfileEducationHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_education = PersonEducation(self.__args)
-        retval = person_education.update()
 
-        return retval
+        return person_education.update()
 
     @login_required
     def delete(self, id=None):
@@ -572,17 +488,12 @@ class PersonProfileEducationHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_education = PersonEducation(self.__args)
-        retval = person_education.delete()
 
-        return retval
+        return person_education.delete()
 
 
 class PersonProfileIdentificationHandler(Resource):
@@ -604,11 +515,9 @@ class PersonProfileIdentificationHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_identification = PersonIdentification(self.__args)
-        retval = person_identification.get()
 
-        return retval
+        return person_identification.get()
 
     @login_required
     def post(self):
@@ -616,9 +525,9 @@ class PersonProfileIdentificationHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_identification = PersonIdentification(self.__args)
-        retval = person_identification.save()
+
+        return person_identification.save()
 
         return retval
 
@@ -628,20 +537,13 @@ class PersonProfileIdentificationHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_identification = PersonIdentification(self.__args)
-        retval = person_identification.update()
 
-        return retval
+        return person_identification.update()
 
     @login_required
     def delete(self, id=None):
@@ -650,17 +552,12 @@ class PersonProfileIdentificationHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_identification = PersonIdentification(self.__args)
-        retval = person_identification.delete()
 
-        return retval
+        return person_identification.delete()
 
 
 class PersonProfileLicenseHandler(Resource):
@@ -673,6 +570,7 @@ class PersonProfileLicenseHandler(Resource):
             self.__reqparse.add_argument('place_issued', type=str, required=True)
             self.__reqparse.add_argument('date_taken', type=str, required=True)
             self.__reqparse.add_argument('date_expiry', type=str, required=True)
+
         self.__args = self.__reqparse.parse_args()
 
     @login_required
@@ -680,11 +578,9 @@ class PersonProfileLicenseHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_license = PersonLicense(self.__args)
-        retval = person_license.get()
 
-        return retval
+        return person_license.get()
 
     @login_required
     def post(self):
@@ -694,11 +590,9 @@ class PersonProfileLicenseHandler(Resource):
         self.__args['person_id'] = self.__userdata['person']['id']
         self.__args['date_start'] = self.__args['date_taken'] + 'T00:00:00Z'
         self.__args['date_end'] = self.__args['date_expiry'] + 'T00:00:00Z'
-
         person_license = PersonLicense(self.__args)
-        retval = person_license.save()
 
-        return retval
+        return person_license.save()
 
     @login_required
     def patch(self, id):
@@ -706,22 +600,15 @@ class PersonProfileLicenseHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         self.__args['date_start'] = self.__args['date_taken'] + 'T00:00:00Z'
         self.__args['date_end'] = self.__args['date_expiry'] + 'T00:00:00Z'
-
         person_license = PersonLicense(self.__args)
-        retval = person_license.update()
 
-        return retval
+        return person_license.update()
 
     @login_required
     def delete(self, id=None):
@@ -730,17 +617,12 @@ class PersonProfileLicenseHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_license = PersonLicense(self.__args)
-        retval = person_license.delete()
 
-        return retval
+        return person_license.delete()
 
 
 class PersonProfilePortfolioHandler(Resource):
@@ -763,11 +645,9 @@ class PersonProfilePortfolioHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_portfolio = PersonPortfolio(self.__args)
-        retval = person_portfolio.get()
 
-        return retval
+        return person_portfolio.get()
 
     @login_required
     def post(self):
@@ -775,7 +655,6 @@ class PersonProfilePortfolioHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -783,9 +662,8 @@ class PersonProfilePortfolioHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         person_portfolio = PersonPortfolio(self.__args)
-        retval = person_portfolio.save()
 
-        return retval
+        return person_portfolio.save()
 
     @login_required
     def patch(self, id):
@@ -793,7 +671,6 @@ class PersonProfilePortfolioHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -801,18 +678,12 @@ class PersonProfilePortfolioHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_portfolio = PersonPortfolio(self.__args)
-        retval = person_portfolio.update()
 
-        return retval
+        return person_portfolio.update()
 
     @login_required
     def delete(self, id=None):
@@ -821,17 +692,12 @@ class PersonProfilePortfolioHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_portfolio = PersonPortfolio(self.__args)
-        retval = person_portfolio.delete()
 
-        return retval
+        return person_portfolio.delete()
 
 
 class PersonProfilePreferenceHandler(Resource):
@@ -854,6 +720,7 @@ class PersonProfilePreferenceHandler(Resource):
             self.__reqparse.add_argument('nvalue_3', type=int, default=None)
             self.__reqparse.add_argument('nvalue_4', type=int, default=None)
             self.__reqparse.add_argument('nvalue_5', type=int, default=None)
+
         self.__args = self.__reqparse.parse_args()
 
     @login_required
@@ -861,14 +728,12 @@ class PersonProfilePreferenceHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is not None:
             self.__args['id'] = id
 
         person_preference = PersonPreference(self.__args)
-        retval = person_preference.get()
 
-        return retval
+        return person_preference.get()
 
     @login_required
     def post(self):
@@ -876,11 +741,9 @@ class PersonProfilePreferenceHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_preference = PersonPreference(self.__args)
-        retval = person_preference.save()
 
-        return retval
+        return person_preference.save()
 
     @login_required
     def patch(self, id):
@@ -888,20 +751,13 @@ class PersonProfilePreferenceHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_preference = PersonPreference(self.__args)
-        retval = person_preference.update()
 
-        return retval
+        return person_preference.update()
 
     @login_required
     def delete(self, id=None):
@@ -909,20 +765,14 @@ class PersonProfilePreferenceHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
 
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_preference = PersonPreference(self.__args)
-        retval = person_preference.delete()
 
-        return retval
+        return person_preference.delete()
 
 
 class PersonProfileSkillHandler(Resource):
@@ -942,11 +792,9 @@ class PersonProfileSkillHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_skill = PersonSkill(self.__args)
-        retval = person_skill.get()
 
-        return retval
+        return person_skill.get()
 
     @login_required
     def post(self):
@@ -954,11 +802,9 @@ class PersonProfileSkillHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_skill = PersonSkill(self.__args)
-        retval = person_skill.save()
 
-        return retval
+        return person_skill.save()
 
     @login_required
     def delete(self, id=None):
@@ -967,17 +813,12 @@ class PersonProfileSkillHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_skill = PersonSkill(self.__args)
-        retval = person_skill.delete()
 
-        return retval
+        return person_skill.delete()
 
 
 class PersonProfileSocialLinksHandler(Resource):
@@ -995,11 +836,9 @@ class PersonProfileSocialLinksHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_social_links = PersonSocialLink(self.__args)
-        retval = person_social_links.get()
 
-        return retval
+        return person_social_links.get()
 
     @login_required
     def post(self):
@@ -1007,11 +846,9 @@ class PersonProfileSocialLinksHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_social_links = PersonSocialLink(self.__args)
-        retval = person_social_links.save()
 
-        return retval
+        return person_social_links.save()
 
     @login_required
     def patch(self, id):
@@ -1019,20 +856,13 @@ class PersonProfileSocialLinksHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_social_links = PersonSocialLink(self.__args)
-        retval = person_social_links.update()
 
-        return retval
+        return person_social_links.update()
 
     @login_required
     def delete(self, id=None):
@@ -1041,17 +871,12 @@ class PersonProfileSocialLinksHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_social_links = PersonSocialLink(self.__args)
-        retval = person_social_links.delete()
 
-        return retval
+        return person_social_links.delete()
 
 
 class PersonProfileTrainingHandler(Resource):
@@ -1073,11 +898,9 @@ class PersonProfileTrainingHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_training = PersonTraining(self.__args)
-        retval = person_training.get()
 
-        return retval
+        return person_training.get()
 
     @login_required
     def post(self):
@@ -1085,7 +908,6 @@ class PersonProfileTrainingHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -1093,9 +915,8 @@ class PersonProfileTrainingHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         person_training = PersonTraining(self.__args)
-        retval = person_training.save()
 
-        return retval
+        return person_training.save()
 
     @login_required
     def patch(self, id):
@@ -1103,7 +924,6 @@ class PersonProfileTrainingHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -1111,18 +931,12 @@ class PersonProfileTrainingHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_training = PersonTraining(self.__args)
-        retval = person_training.update()
 
-        return retval
+        return person_training.update()
 
     @login_required
     def delete(self, id=None):
@@ -1131,17 +945,12 @@ class PersonProfileTrainingHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_training = PersonTraining(self.__args)
-        retval = person_training.delete()
 
-        return retval
+        return person_training.delete()
 
 
 class PersonProfileWorkHistoryHandler(Resource):
@@ -1167,10 +976,8 @@ class PersonProfileWorkHistoryHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         person_work_history = PersonWorkHistory(self.__args)
         retval = person_work_history.get()
-
         for work in retval['person_work_history']:
             cities = CitySchema.objects(city_code=work['city_code'])
             for city in cities:
@@ -1181,7 +988,6 @@ class PersonProfileWorkHistoryHandler(Resource):
                     'province_name': city['province_name'],
                     'country_code': city['country_code']
                 }
-
                 work['city'] = city_data
 
         return retval
@@ -1192,7 +998,6 @@ class PersonProfileWorkHistoryHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['created_by'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -1200,9 +1005,8 @@ class PersonProfileWorkHistoryHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         person_work_history = PersonWorkHistory(self.__args)
-        retval = person_work_history.save()
 
-        return retval
+        return person_work_history.save()
 
     @login_required
     def patch(self, id):
@@ -1210,7 +1014,6 @@ class PersonProfileWorkHistoryHandler(Resource):
         self.__args['group_code'] = self.__userdata['group_code']
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
-
         self.__args['date_start'] = self.__args['date_start'] + 'T00:00:00Z'
         if self.__args['date_end'] is not None:
             self.__args['date_end'] = self.__args['date_end'] + 'T00:00:00Z'
@@ -1218,18 +1021,12 @@ class PersonProfileWorkHistoryHandler(Resource):
             self.__args['date_end'] = '2099-12-31T00:00:00Z'
 
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
-
         person_work_history = PersonWorkHistory(self.__args)
-        retval = person_work_history.update()
 
-        return retval
+        return person_work_history.update()
 
     @login_required
     def delete(self, id=None):
@@ -1238,17 +1035,12 @@ class PersonProfileWorkHistoryHandler(Resource):
         self.__args['login_user'] = self.__userdata['login_name']
         self.__args['person_id'] = self.__userdata['person']['id']
         if id is None:
-            retval = {
-                'status': 'FAILED'
-            }
-
-            return retval
+            return {'status': 'FAILED'}
 
         self.__args['id'] = id
         person_work_history = PersonWorkHistory(self.__args)
-        retval = person_work_history.delete()
 
-        return retval
+        return person_work_history.delete()
 
 
 class PersonRegisterHandler(Resource):
@@ -1275,17 +1067,17 @@ class PersonRegisterHandler(Resource):
             self.__reqparse.add_argument('auth_token', type=str, location='json')
             self.__reqparse.add_argument('auth_provider', type=str, location='json')
             self.__reqparse.add_argument('auth_code', type=str, location='json')
+
         self.__args = self.__reqparse.parse_args()
 
     def post(self):
         create_login_credential = False
         person_firstname_param = self.__args['firstname']
         recipient_email = self.__args['email']
-
         if self.__args['contact_number'] != '':
             self.__args['mobile'] = self.__args['contact_number']
-        self.__args['nationality'] = 'PH'
 
+        self.__args['nationality'] = 'PH'
         self.__args['title'] = ''
         self.__args['group_code'] = app.config['GROUP_CODE']
         self.__args['created_by'] = 'WEB'
@@ -1293,16 +1085,13 @@ class PersonRegisterHandler(Resource):
         self.__args['override_check'] = False
         self.__args['is_verified'] = False
         self.__args['is_searchable'] = True
-
         signup = UserPerson(self.__args)
         retval = signup.save()
         if retval['status'] != 'SUCCESS':
-            retval = {
+            return {
                 'status': 'FAILED',
                 'message': 'Email or contact number is already exist.'
             }
-
-            return retval
 
         create_login_credential = True
         person_uuid = retval['person'][0]['uuid']
@@ -1310,18 +1099,14 @@ class PersonRegisterHandler(Resource):
         self.__args['person_type'] = 'WEB'
         person = Person(self.__args)
         retval = person.save()
-
         if retval['status'] != 'SUCCESS':
-            retval = {
+            return {
                 'status': 'FAILED',
                 'message': 'Something went wrong, please try again later.'
             }
 
-            return retval
-
         person_id = retval['person'][0]['id']
         self.save_person_preference_consent(person_id)
-
         if create_login_credential:
             person_uuid = retval['person'][0]['uuid']
             acct_code = app.config['GROUP_CODE']
@@ -1341,7 +1126,6 @@ class PersonRegisterHandler(Resource):
             }
             signup_login = Users(login_data)
             login_data = signup_login.save()
-
             if self.__args['auth_provider'] is not None and self.__args['auth_token'] is not None:
                 if len(login_data.get('data')) > 0 and login_data['data'][0].get('login_uuid') is not None:
                     login = login_data['data'][0]
@@ -1358,10 +1142,9 @@ class PersonRegisterHandler(Resource):
                         'action': 'redirect',
                         'status': 'SUCCESS'
                     }
+
             else:
-                retval = {
-                    'status': 'SUCCESS'
-                }
+                retval = {'status': 'SUCCESS'}
 
             login_uuid_param = login_data['data'][0]['login_uuid']
             token_data = {
@@ -1371,17 +1154,14 @@ class PersonRegisterHandler(Resource):
             get_token = Token(token_data)
             retval_token = get_token.get()
             token_param = retval_token['token'][0]['token']
-
             client_url = url_for('index', login_name=None, _external=True, _scheme='https')
             activation_url = '{}activate?code={}&email={}'.format(client_url, token_param, recipient_email)
-
             data = {
                 'client_code': app.config['CLIENT_CODE'],
                 'name': person_firstname_param,
                 'link': activation_url,
                 'img_link': client_url + 'static/assets/images/{}/email-logo.png'.format(app.config['CLIENT_CODE'].lower())
             }
-
             email_template = render_template('email/email-sign-up.html', data=data)
             email_data = {
                 'body': '{} Recruitment Email Verification'.format(app.config['CLIENT_CODE']),
@@ -1391,15 +1171,12 @@ class PersonRegisterHandler(Resource):
                 'subject': '{} Recruitment Email Verification'.format(app.config['CLIENT_CODE']),
                 'acct_code': app.config['GROUP_CODE']
             }
-
             email = Email(email_data)
             email.save()
-
             login_params = {
                 'acct_code': app.config['GROUP_CODE'],
                 'user_type': 'WEB'
             }
-
             login_args = {
                 'username': self.__args['email'],
                 'password': self.__args['password'],
@@ -1410,7 +1187,6 @@ class PersonRegisterHandler(Resource):
                 'ua': self.__args['ua'],
                 'ip': self.__args['ip']
             }
-
             if login_args.get('ip', None) is None:
                 login_args['ip'] = request.remote_addr
 
@@ -1424,15 +1200,12 @@ class PersonRegisterHandler(Resource):
 
     def save_person_preference_consent(self, person_id):
         interest_list = self.__args['interests']['interests']
-
         self.__args['consent']['person_id'] = person_id
         self.__args['consent']['subscribe'] = True
         self.__args['consent']['group_code'] = app.config['GROUP_CODE']
         self.__args['consent']['created_by'] = self.__args['email']
         self.__args['consent'].pop('id', None)
-
         PersonConsent(self.__args['consent']).save()
-
         person_location = {
             'person_id': person_id,
             'preference_code': 'WORK_LOCATION',
@@ -1446,9 +1219,7 @@ class PersonRegisterHandler(Resource):
             'group_code': app.config['GROUP_CODE'],
             'created_by': self.__args['email']
         }
-
         PersonPreference(person_location).save()
-
         person_salary = {
             'person_id': person_id,
             'preference_code': 'SALARYRANGE',
@@ -1459,9 +1230,7 @@ class PersonRegisterHandler(Resource):
             'group_code': app.config['GROUP_CODE'],
             'created_by': self.__args['email']
         }
-
         PersonPreference(person_salary).save()
-
         for interest in interest_list:
             person_interest = {
                 'person_id': person_id,
@@ -1473,5 +1242,4 @@ class PersonRegisterHandler(Resource):
                 'group_code': app.config['GROUP_CODE'],
                 'created_by': self.__args['email']
             }
-
             PersonPreference(person_interest).save()

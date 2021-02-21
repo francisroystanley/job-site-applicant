@@ -15,7 +15,7 @@ from .branch import BranchHandler
 from .businessunit import BusinessUnitHandler, BusinessUnitPhotoHandler
 from .consent import ConsentHandler
 from .email import EmailVerifyHandler
-from .env import EnvHandler
+from .env_var import EnvHandler
 from .file_download import AttachmentHandler, ImageHandler, PhotoHandler, ResumeHandler
 from .job_ad import JobAdHandler, JobAdApplicationHandler
 from .job_ad import JobAdApplicationQuickHandler, JobAdSearchTagHandler, JobAdTagHandler
@@ -28,8 +28,8 @@ from .person import PersonProfileEducationHandler, PersonProfileIdentificationHa
 from .person import PersonProfilePortfolioHandler, PersonProfilePreferenceHandler, PersonProfileSkillHandler
 from .person import PersonProfileSocialLinksHandler, PersonProfileTrainingHandler, PersonProfileWorkHistoryHandler
 from .person import PersonRegisterHandler
-from .place import CityHandler, ProvinceHandler
-from .profile import CitizenshipHandler, ReligionHandler
+from .place import CityHandler, CountryHandler, ProvinceHandler
+from .profile import CitizenshipHandler, CourseHandler, ReligionHandler, SchoolHandler
 from .request import RequestHandler
 from .skill import SkillHandler
 from .status import AllStatusActionHandler, StatusHandler, StatusActionHandler
@@ -66,6 +66,8 @@ class MiddleWare(object):
         self.__api.add_resource(CitizenshipHandler, '/api/citizenship')
         self.__api.add_resource(CityHandler, '/api/city')
         self.__api.add_resource(ConsentHandler, '/api/consent')
+        self.__api.add_resource(CourseHandler, '/api/course')
+        self.__api.add_resource(CountryHandler, '/api/country')
         self.__api.add_resource(EmailVerifyHandler, '/api/verify')
         self.__api.add_resource(EnvHandler, '/api/env')
         self.__api.add_resource(ImageHandler, '/<image>/<file_name>', endpoint='image')
@@ -115,6 +117,7 @@ class MiddleWare(object):
         self.__api.add_resource(ReligionHandler, '/api/religion')
         self.__api.add_resource(RequestHandler, '/api/request/purge_person')
         self.__api.add_resource(ResumeHandler, '/resume/<file_name>')
+        self.__api.add_resource(SchoolHandler, '/api/school')
         self.__api.add_resource(SkillHandler, '/api/skill')
         self.__api.add_resource(StatusHandler, '/api/status')
         self.__api.add_resource(StatusHandler, '/api/status/<id>', endpoint='status_self')

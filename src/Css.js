@@ -1,9 +1,6 @@
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { useDispatch, useSelector } from "react-redux";
-
-import { getEnv } from "./slices/env";
-import { getBusinessUnit, updateBusinessUnitList } from './slices/businessUnit';
+import { useSelector } from "react-redux";
 
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,13 +8,7 @@ import "react-bootstrap-typeahead/css/Typeahead.css";
 
 
 const CSS = () => {
-  const dispatch = useDispatch();
   const env = useSelector(({ env }) => env);
-
-  useEffect(() => {
-    dispatch(getEnv());
-    dispatch(getBusinessUnit()).then(({ payload }) => dispatch(updateBusinessUnitList(payload)));
-  }, []);
 
   return env.client_code ? (
     <>

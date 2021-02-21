@@ -45,7 +45,6 @@ class LinkedInApi(object):
         self.__app.logger.debug(self.__headers)
         req = Request(method, url, params=params, json=data, headers=self.__headers)
         prepped = req.prepare()
-
         try:
             res = s.send(prepped, timeout=30)
             retval = res.json()
@@ -61,9 +60,11 @@ class LinkedInApi(object):
     def get(self, resource, data=None, auth=None):
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('GET', url, params=data, auth=auth)
 
     def save(self, resource, data=None, auth=None):
         url = self.__get_url(resource, data)
         self.__app.logger.debug(data)
+
         return self.__request('POST', url, data=data, auth=auth)

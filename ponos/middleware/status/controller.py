@@ -17,11 +17,9 @@ class AllStatusActionHandler(Resource):
     def get(self, id=None):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
-
         status_action = AllStatusAction(self.__args)
-        retval = status_action.get()
 
-        return retval
+        return status_action.get()
 
 
 class StatusHandler(Resource):
@@ -39,9 +37,8 @@ class StatusHandler(Resource):
             self.__args['id'] = id
 
         status = Status(self.__args)
-        retval = status.get()
 
-        return retval
+        return status.get()
 
 
 class StatusActionHandler(Resource):
@@ -56,15 +53,12 @@ class StatusActionHandler(Resource):
         self.__userdata = current_user.info
         self.__args['group_code'] = self.__userdata['group_code']
         if status_id is None:
-            return {
-                'status': 'FAILED'
-            }
+            return {'status': 'FAILED'}
 
         self.__args['status_id'] = status_id
         if id is not None:
             self.__args['id'] = id
 
         status = StatusAction(self.__args)
-        retval = status.get()
 
-        return retval
+        return status.get()

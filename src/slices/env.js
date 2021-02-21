@@ -18,7 +18,10 @@ const envSlice = createSlice({
     updateState: (state, { payload }) => ({ ...state, ...payload })
   },
   extraReducers: {
-    [getEnv.fulfilled]: (state, { payload }) => ({ ...state, ...payload }),
+    [getEnv.fulfilled]: (state, { payload }) => {
+      const env = require(`../js/${ payload.client_code.toLowerCase() }.js`).default;
+      return { ...state, ...payload, ...env };
+    },
     [getEnv.rejected]: (state, action) => {
       console.log("rejected: ", action);
     }

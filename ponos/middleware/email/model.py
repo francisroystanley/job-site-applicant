@@ -9,6 +9,4 @@ class Email(GenericModel):
         super().__init__(self.__resource, self.__api, self.__args)
 
     def send(self):
-        retval = self.__api.save(self.__resource, self.__args)
-
-        return retval
+        return self.__api.save(self.__resource, self.__args)

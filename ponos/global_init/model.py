@@ -1,5 +1,3 @@
-
-
 class GenericModel(object):
     def __init__(self, resource, api, args):
         self.__resource = resource
@@ -7,17 +5,13 @@ class GenericModel(object):
         self.__args = args
 
     def get(self):
-        self.__data = self.__api.get(self.__resource, self.__args)
-        return self.__data
+        return self.__api.get(self.__resource, self.__args)
 
     def save(self):
-        self.__data = self.__api.save(self.__resource, self.__args)
-        return self.__data
+        return self.__api.save(self.__resource, self.__args)
 
     def update(self):
-        self.__data = self.__api.update(self.__resource, self.__args)
-        return self.__data
+        return self.__api.update(self.__resource, self.__args)
 
     def delete(self):
-        self.__data = self.__api.delete(self.__resource, self.__args)
-        return self.__data
+        return self.__api.delete(self.__resource, self.__args)

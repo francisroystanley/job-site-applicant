@@ -10,12 +10,12 @@ class RecaptchaHandler(Resource):
         self.__reqparse = reqparse.RequestParser()
         if request.method in ('POST'):
             self.__reqparse.add_argument('response', type=str, required=True)
+
         self.__args = self.__reqparse.parse_args()
         self.__args['group_code'] = app.config['GROUP_CODE']
 
     def get(self):
-        retval = {'client_key': app.config['GOOGLE_RECAPTCHA_CLIENT_KEY']}
-        return retval
+        return {'client_key': app.config['GOOGLE_RECAPTCHA_CLIENT_KEY']}
 
     def post(self):
         http_stat = 200
@@ -26,7 +26,6 @@ class RecaptchaHandler(Resource):
         }
         recaptcha = Recaptcha(data)
         res = recaptcha.post()
-
         if res is not None:
             retval = res
         else:

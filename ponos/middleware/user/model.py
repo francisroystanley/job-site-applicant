@@ -33,7 +33,6 @@ class User(ModelSchema, UserMixin):
         self.__username = username
         self.__args = kwargs
         super().__init__()
-
         if accountcode is not None and username is not None:
             user = vprofile.login_get({'acct_code': accountcode, 'login_name': username})
             if len(user['data']) >= 1:
@@ -46,6 +45,7 @@ class User(ModelSchema, UserMixin):
         encoded_token = "reset_token:{}".format(str(reset_token)).encode('utf-8')
         encoded_token = urlsafe_b64encode(encoded_token)
         encoded_token = urlsafe_b64encode(encoded_token)
+
         return encoded_token
 
     @property
@@ -77,12 +77,9 @@ class User(ModelSchema, UserMixin):
         res = vprofile.authenticate(self.__args)
         if res is not None and res.get('status', None) == 'SUCCESS':
             self.__user = {**res, **self.__args}
-
             self.__user['expiry'] = datetime.utcnow() + timedelta(hours=1)
-
             self.__user.pop('password')
             self.__user['group_code'] = accountcode
-
             res_login = self.get_login()
             if len(res_login) > 0:
                 person_uuid = res_login[0]['person_uuid']
@@ -96,17 +93,18 @@ class User(ModelSchema, UserMixin):
                     self.__user['person'] = person[0]
                 else:
                     self.__user['person'] = {'fullname': username.upper()}
+
             else:
                 self.__user['person'] = {'fullname': username.upper()}
 
             self.__user['last_login'] = datetime.strptime(self.__user['last_login'], '%Y-%m-%dT%H:%M:%S.%fZ')
-
             self.__session = UserSessionSchema(**self.__user)
             self.__session.save()
             self.__session_token = str(self.__session.id)
             self.__is_authenticated = True
         else:
             self.__is_authenticated = False
+
         return self
 
     @classmethod
@@ -122,12 +120,9 @@ class User(ModelSchema, UserMixin):
             'device': device,
             **kwargs
         }
-
         self.__user = self.__args
-
         self.__user['expiry'] = datetime.utcnow() + timedelta(hours=1)
         self.__user['group_code'] = accountcode
-
         res_login = self.get_login()
         if len(res_login) > 0:
             person_uuid = res_login[0]['person_uuid']
@@ -141,11 +136,11 @@ class User(ModelSchema, UserMixin):
                 self.__user['person'] = person[0]
             else:
                 self.__user['person'] = {'fullname': username.upper()}
+
         else:
             self.__user['person'] = {'fullname': username.upper()}
 
         self.__user['last_login'] = datetime.strptime(self.__user['last_login'], '%Y-%m-%dT%H:%M:%SZ')
-
         self.__session = UserSessionSchema(**self.__user)
         self.__session.save()
         self.__session_token = str(self.__session.id)
@@ -168,6 +163,7 @@ class User(ModelSchema, UserMixin):
         self.__session.expiry = datetime.utcnow() + timedelta(minutes=20)
         self.__session.save()
         # self.__db.sessions.update_one({'_id': session_id}, {'$set': data})
+
         return
 
     def get_id(self):
@@ -194,15 +190,18 @@ class User(ModelSchema, UserMixin):
         }
         login = Users(args)
         retval = login.get()
+
         return retval.get('data')
 
     def get_person(self, args):
         person = UserPerson(args)
         retval = person.get()
+
         return retval.get('person')
 
     def get_person_ponos(self, args):
         person = ponosapi.get('person', args)
+
         return person
 
     def get_policy(self):
@@ -217,6 +216,7 @@ class User(ModelSchema, UserMixin):
 
     def get_request_token(self):
         encoded_token = self.__session_token.encode('utf-8')
+
         return urlsafe_b64encode(encoded_token).decode('utf-8')
 
     @property
@@ -237,13 +237,14 @@ class User(ModelSchema, UserMixin):
             self.__session_token = session_id
         else:
             self = None
+
         return self
 
     @classmethod
     def load_session_token(cls, token):
         decoded_token = urlsafe_b64decode(token).decode('utf-8')
-        self = cls.load_session(decoded_token)
-        return self
+
+        return cls.load_session(decoded_token)
 
     def remove(self):
         session_id = ObjectId(self.__session_token)
@@ -254,8 +255,8 @@ class User(ModelSchema, UserMixin):
 
     def update_password(self, password):
         self.__args = {'password': password, 'login_uuid': self.__user['login_uuid']}
-        res = vprofile.password_update(self.__args)
-        return res
+
+        return vprofile.password_update(self.__args)
 
     @classmethod
     def validate_token(cls, accountcode, username, reset_token, **kwargs):
@@ -327,19 +328,19 @@ class UserPhoto(GenericModel):
         date_now = datetime.now()
         file_random_string = file + ''.join(random.choice(string.digits) for _ in range(5))
         file_random_string = file_random_string + date_now.strftime('%m/%d/%Y, %H:%M:%S')
-
         key1 = self.generate_key(file_random_string)
         key2 = self.generate_key(key1)
         key3 = self.generate_key(f'{key1}_{key2}')
         filename = f'{key1}_{key2[:-10]}_{key3[:-10]}.jpg'
         key = key1[-6:].upper()
+
         return filename, key
 
     def generate_key(self, file):
         m = hashlib.md5()
         m.update(file.encode('utf-8'))
-        data = m.hexdigest()
-        return data
+
+        return m.hexdigest()
 
     def request_file_upload(self, filename, key):
         data = {
@@ -356,19 +357,18 @@ class UserPhoto(GenericModel):
             retval = storage[0].get('request')
         else:
             retval = {}
+
         return retval
 
     def upload(self, url, fields, file):
-        files = {
-            'file': file
-        }
-        retval = requests.post(url, data=fields, files=files)
-        return retval
+        files = {'file': file}
+
+        return requests.post(url, data=fields, files=files)
 
     def save(self, file_name, key):
         self.__args['photo'] = f'{key}.{file_name}'
-        retval = super().save()
-        return retval
+
+        return super().save()
 
 
 class UserResume(GenericModel):
@@ -382,19 +382,19 @@ class UserResume(GenericModel):
         date_now = datetime.now()
         file_random_string = file + ''.join(random.choice(string.digits) for _ in range(5))
         file_random_string = file_random_string + date_now.strftime('%m/%d/%Y, %H:%M:%S')
-
         key1 = self.generate_key(file_random_string)
         key2 = self.generate_key(key1)
         key3 = self.generate_key(f'{key1}_{key2}')
         filename = f'{key1}_{key2[:-10]}_{key3[:-10]}.pdf'
         key = key1[-6:].upper()
+
         return filename, key
 
     def generate_key(self, file):
         m = hashlib.md5()
         m.update(file.encode('utf-8'))
-        data = m.hexdigest()
-        return data
+
+        return m.hexdigest()
 
     def request_file_upload(self, filename, key):
         data = {
@@ -411,16 +411,15 @@ class UserResume(GenericModel):
             retval = storage[0].get('request')
         else:
             retval = {}
+
         return retval
 
     def upload(self, url, fields, file):
-        files = {
-            'file': file
-        }
-        retval = requests.post(url, data=fields, files=files)
-        return retval
+        files = {'file': file}
+
+        return requests.post(url, data=fields, files=files)
 
     def save(self, file_name, key):
         self.__args['field_value'] = f'{key}.{file_name}'
-        retval = super().save()
-        return retval
+
+        return super().save()

@@ -1,1 +1,1 @@
-from .controller import CitizenshipHandler, ReligionHandler
+from .controller import CitizenshipHandler, CourseHandler, ReligionHandler, SchoolHandler

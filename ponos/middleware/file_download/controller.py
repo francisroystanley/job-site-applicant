@@ -52,9 +52,8 @@ class ImageHandler(Resource):
         try:
             image = Image(self.__args)
         except Exception as e:
-            retval = {'status': 'FAILED'}
             self.__app.logger.error(e)
-            return retval, 400
+            return {'status': 'FAILED'}, 400
 
         getImage = image.get()
         if getImage['status'] == 'FAILED':

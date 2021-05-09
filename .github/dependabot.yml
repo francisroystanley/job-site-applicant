@@ -4,6 +4,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    default_reviewers:
+      day: "monday"
+      time: "12:00"
+      timezone: "Singapore"
+    reviewers:
       - "francisroystanley"
-
+    target-branch: "bot-branch"
+    open-pull-requests-limit: 10
